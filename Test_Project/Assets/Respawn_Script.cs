@@ -5,8 +5,17 @@ using UnityEngine;
 public class Respawn_Script : MonoBehaviour
 {
     Vector3 spawn;
-    void OnTriggerEnter()
+
+     void Start()
     {
+        spawn = transform.position;
+    }
+
+    void OnTriggerEnter(Collider col)
+    {
+        transform.position = spawn;
+
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
 
     }
 }

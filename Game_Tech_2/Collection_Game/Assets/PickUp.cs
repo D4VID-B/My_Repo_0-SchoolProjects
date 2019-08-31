@@ -4,11 +4,33 @@ using UnityEngine;
 
 public class PickUp : MonoBehaviour
 {
+
+    public ParticleSystem ps;
+
+    public enum OnPickup
+    {
+        Emit_Particles,
+        Rrmove_Object
+    }
+
+    public OnPickup PickupAction;
+
     private void OnTriggerEnter(Collider other)
     {
         GameObject.Find("GameManager").GetComponent<GameManager>().ChangeScore();
 
-        gameObject.SetActive(false);
+
+        if (PickupAction == OnPickup.Emit_Particles)
+        {
+            ps.Play();
+        }
+        else if(PickupAction == OnPickup.Rrmove_Object)
+        {
+            gameObject.SetActive(false);
+        }
+        
+
+        
     }
 
     // Update is called once per frame

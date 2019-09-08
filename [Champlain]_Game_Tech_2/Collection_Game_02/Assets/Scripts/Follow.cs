@@ -9,14 +9,17 @@ public class Follow : MonoBehaviour
     public float distance = 10f;
     public float rotDamping = 5f;
 
-    
+    public float wantedRotationAngle;
+    public float currentRotationAngle;
+    public float wantedHeight;
+    public float currentHeight;
 
     void LateUpdate()
     {
-        float wantedRotationAngle = target.eulerAngles.y;
-        float currentRotationAngle = transform.eulerAngles.y;
-        float wantedHeight = target.position.y + height;
-        float currentHeight = transform.position.y;
+         wantedRotationAngle = target.eulerAngles.y;
+         currentRotationAngle = transform.eulerAngles.y;
+         wantedHeight = target.position.y + height;
+         currentHeight = transform.position.y;
 
         //LERP the rotation
         currentRotationAngle = Mathf.LerpAngle(currentRotationAngle, wantedRotationAngle, rotDamping * Time.deltaTime);

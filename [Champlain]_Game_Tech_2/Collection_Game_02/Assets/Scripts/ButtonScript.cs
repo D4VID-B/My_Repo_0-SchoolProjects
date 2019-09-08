@@ -11,4 +11,15 @@ public class ButtonScript : MonoBehaviour
     {
         SceneManager.LoadScene(SCENE_NAME);
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Player")
+        {
+            Debug.Log("Woosh");
+            OnClick();
+        }
+
+        
+    }
 }

@@ -5,15 +5,15 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public Text scoreText;
+    //public Text scoreText;
     int playerScore = 0;
 
-    public GameObject endPanel;
+    //public GameObject endPanel;
     
     // Start is called before the first frame update
     void Start()
     {
-        endPanel.SetActive(false);
+       // endPanel.SetActive(false);
     }
 
     // Update is called once per frame
@@ -22,20 +22,21 @@ public class GameManager : MonoBehaviour
         
     }
 
+
     public void ChangeScore()
     {
         playerScore++;
 
         if (playerScore >= 4)
         {
-            scoreText.color = new Color(0, 255, 0);
+           // scoreText.color = new Color(0, 255, 0);
         }
 
-        scoreText.text = playerScore.ToString();
+        //scoreText.text = playerScore.ToString();
 
         if(playerScore == 5)
         {
-            endPanel.SetActive(true);
+          //  endPanel.SetActive(true);
         }
     }
 

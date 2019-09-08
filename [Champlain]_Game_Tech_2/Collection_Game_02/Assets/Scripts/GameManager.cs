@@ -2,42 +2,76 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    //public Text scoreText;
-    int playerScore = 0;
 
-    //public GameObject endPanel;
-    
-    // Start is called before the first frame update
+    /*public*/ GameObject endPanel;
+    /*public*/ GameObject gate;
+
+    //public static GameManager instance;
+
+    void Awake()
+    {
+        if(endPanel == null)
+        {
+            endPanel = GameObject.Find("EndPanel");
+            Debug.Log("Panel Found");
+        }
+        
+        if(gate == null)
+        {
+            gate = GameObject.Find("Gate");
+            Debug.Log("Gate Found");
+        }
+
+        //if (instance == null)
+        //{
+        //    instance = this;
+
+        //    DontDestroyOnLoad(gameObject);
+        //}
+        //else if (instance != null)
+        //{
+        //    Destroy(gameObject);
+        //}
+    }
+
     void Start()
     {
-       // endPanel.SetActive(false);
+
+        //endPanel.SetActive(false);
+        GameObject.Find("EndPanel").SetActive(false);
+
+        Debug.Log(SceneManager.GetActiveScene().ToString());
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (ScoreScript.instance.getScore() == 16 /*&& SceneManager.GetActiveScene().ToString() == "Level01"*/)
+        {
+            endPanel.SetActive(true);     //Attempt 1
+            //GameObject.Find("EndPanel").SetActive(true);        //Attempt 2
+            gate.GetComponent<Gate>().openGate();
+            //GameObject.Find("Gate").GetComponent<Gate>().openGate();
+        }
+        else if (ScoreScript.instance.getScore() >= 32 /*&& SceneManager.GetActiveScene().ToString() == "Level02"*/)
+        {
+            endPanel.SetActive(true);
+            //GameObject.Find("EndPanel").SetActive(true);
+            gate.GetComponent<Gate>().deactivateGate();
+            //GameObject.Find("Gate").GetComponent<Gate>().deactivateGate();
+        }
     }
 
 
-    public void ChangeScore()
+    public void ChangeScore(int amount)
     {
-        playerScore++;
+        ScoreScript.instance.setScore(amount);
 
-        if (playerScore >= 4)
-        {
-           // scoreText.color = new Color(0, 255, 0);
-        }
-
-        //scoreText.text = playerScore.ToString();
-
-        if(playerScore == 5)
-        {
-          //  endPanel.SetActive(true);
-        }
+        Debug.Log("Score: " + ScoreScript.instance.getScore().ToString());
+       
     }
 
 }

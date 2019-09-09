@@ -63,6 +63,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ps: {fileID: 0}
+  gm: {fileID: 3560683095396138344, guid: 57a6674216ca6b846a9fad1fe84f188c, type: 3}
   PickupAction: 0
 --- !u!54 &1001126881393619029
 Rigidbody:

@@ -4540,31 +4540,13 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 269549415}
   m_Mesh: {fileID: 206207576}
---- !u!1 &276573099 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3560683095396138345, guid: 57a6674216ca6b846a9fad1fe84f188c,
-    type: 3}
-  m_PrefabInstance: {fileID: 3560683094056967877}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &276573100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 276573099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db8695200b6efb644a0dbef1e7bd9d85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &276573101 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3560683095396138344, guid: 57a6674216ca6b846a9fad1fe84f188c,
     type: 3}
   m_PrefabInstance: {fileID: 3560683094056967877}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 276573099}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f60be0bfed85d484a8c3097994655aec, type: 3}
@@ -10884,6 +10866,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3560683095396138344, guid: 57a6674216ca6b846a9fad1fe84f188c,
+        type: 3}
+      propertyPath: endPanel
+      value: 
+      objectReference: {fileID: 225978619}
+    - target: {fileID: 3560683095396138344, guid: 57a6674216ca6b846a9fad1fe84f188c,
+        type: 3}
+      propertyPath: gate
+      value: 
+      objectReference: {fileID: 459755276}
+    - target: {fileID: 3560683095396138344, guid: 57a6674216ca6b846a9fad1fe84f188c,
+        type: 3}
+      propertyPath: score
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3560683095396138347, guid: 57a6674216ca6b846a9fad1fe84f188c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10939,16 +10936,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3560683095396138344, guid: 57a6674216ca6b846a9fad1fe84f188c,
-        type: 3}
-      propertyPath: endPanel
-      value: 
-      objectReference: {fileID: 225978619}
-    - target: {fileID: 3560683095396138344, guid: 57a6674216ca6b846a9fad1fe84f188c,
-        type: 3}
-      propertyPath: gate
-      value: 
-      objectReference: {fileID: 459755276}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57a6674216ca6b846a9fad1fe84f188c, type: 3}
 --- !u!1001 &4219597478699442843

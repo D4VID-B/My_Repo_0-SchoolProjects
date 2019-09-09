@@ -6,7 +6,7 @@ public class PickUp : MonoBehaviour
 {
 
     public ParticleSystem ps;
-    public GameManager gm;
+    //public GameManager gm;
 
     public enum OnPickup
     {
@@ -21,20 +21,20 @@ public class PickUp : MonoBehaviour
 
         if(gameObject.tag == "Core01")
         {
-            //GameObject.Find("GameManager").GetComponent<GameManager>().ChangeScore(1);
-            gm.ChangeScore(1);
+            GameObject.Find("GameManager").GetComponent<GameManager>().ChangeScore(1);
+            //gm.ChangeScore(1);
             //Debug.Log("Collected Core 1");
         }
         else if(gameObject.tag == "Core02")
         {
-            //GameObject.Find("GameManager").GetComponent<GameManager>().ChangeScore(5);
-            gm.ChangeScore(5);
+            GameObject.Find("GameManager").GetComponent<GameManager>().ChangeScore(5);
+            //gm.ChangeScore(5);
             //Debug.Log("Collected Core 2");
         }
         else if(gameObject.tag == "Core03")
         {
-            //GameObject.Find("GameManager").GetComponent<GameManager>().ChangeScore(10);
-            gm.ChangeScore(10);
+            GameObject.Find("GameManager").GetComponent<GameManager>().ChangeScore(10);
+            //gm.ChangeScore(10);
             //Debug.Log("Collected Core 3");
         }
 

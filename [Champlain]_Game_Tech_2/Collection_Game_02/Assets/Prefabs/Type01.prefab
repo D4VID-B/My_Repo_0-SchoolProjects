@@ -7,15 +7,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -6613255251150858833, guid: 4827a9f3f4f996148af7552499f2a23f,
-        type: 3}
-      propertyPath: PickupAction
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5614008912370032840, guid: 4827a9f3f4f996148af7552499f2a23f,
         type: 3}
       propertyPath: m_Name
       value: Type01
+      objectReference: {fileID: 0}
+    - target: {fileID: 5614008912370032840, guid: 4827a9f3f4f996148af7552499f2a23f,
+        type: 3}
+      propertyPath: m_TagString
+      value: Core01
       objectReference: {fileID: 0}
     - target: {fileID: 7749002962504542592, guid: 4827a9f3f4f996148af7552499f2a23f,
         type: 3}
@@ -71,6 +71,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6613255251150858833, guid: 4827a9f3f4f996148af7552499f2a23f,
+        type: 3}
+      propertyPath: PickupAction
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4827a9f3f4f996148af7552499f2a23f, type: 3}

@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
 
-    public GameObject endPanel;
+    public GameObject endPanel; //Deactivate in level 2 with a separate script
     public GameObject gate;
 
     public static GameManager instance;
@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         findObjects();
-        endPanel.SetActive(false);
 
         if (instance == null)
         {
@@ -28,14 +27,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    void Start()
-    {
-        
-        
-
-        
     }
 
     void Update()
@@ -62,7 +53,7 @@ public class GameManager : MonoBehaviour
             endPanel = GameObject.Find("EndPanel");
             //endPanel = GameObject.Find("EndPanel02");
 
-            Debug.Log(endPanel.ToString());
+            //Debug.Log(endPanel.ToString());
         }
 
         if (gate == null)
@@ -70,7 +61,7 @@ public class GameManager : MonoBehaviour
             gate = GameObject.Find("Gate");
             //gate = GameObject.Find("Gate02");
 
-            Debug.Log(gate.ToString());
+            //Debug.Log(gate.ToString());
         }
     }
 
@@ -90,9 +81,14 @@ public class GameManager : MonoBehaviour
             gate.GetComponent<Gate>().deactivateGate();
             //GameObject.Find("Gate").GetComponent<Gate>().deactivateGate();
         }
-        else if (score >= 42 && SceneManager.GetActiveScene().name == "Level02")
+        else if (score >= 42 && SceneManager.GetActiveScene().name == "Level03")
         {
-            GameObject.Find("Player").transform.position = new Vector3(2f, 1f, -2f);
+
+            //GameObject.Find("Player").transform.position = new Vector3(2f, 1f, -2f);
+
+            gate.GetComponent<Gate>().deactivateGate();
+
+            //Debug.Log("Player Teleported");
         }
     }
 

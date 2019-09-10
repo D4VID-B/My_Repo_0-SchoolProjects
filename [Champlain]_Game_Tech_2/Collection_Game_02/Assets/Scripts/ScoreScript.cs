@@ -29,7 +29,7 @@ public class ScoreScript : MonoBehaviour
 
     public void setScore(int amount)
     {
-        score += amount;
+        instance.score += amount;
     }
 
 }

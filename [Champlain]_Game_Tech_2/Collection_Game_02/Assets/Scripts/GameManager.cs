@@ -15,7 +15,9 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        findObjects();
+        findGate("Gate");
+        findPanel("EndPanel");
+        flipPanel(false);
 
         if (instance == null)
         {
@@ -27,11 +29,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    void Update()
-    {
-        findObjects();
     }
 
 
@@ -46,50 +43,53 @@ public class GameManager : MonoBehaviour
        
     }
 
-    void findObjects()
+    void checkScore()
     {
-        if (endPanel == null)
+        if (score == 16 && SceneManager.GetActiveScene().name == "Level01")
         {
-            endPanel = GameObject.Find("EndPanel");
-            //endPanel = GameObject.Find("EndPanel02");
+            flipPanel(true);
 
-            //Debug.Log(endPanel.ToString());
+            deactivateGate();
+
         }
+        else if (score >= 32 && SceneManager.GetActiveScene().name == "Level02")
+        {
+            endPanel = findPanel("EndPanel02");
+            
+            flipPanel(true);
+
+            deactivateGate();
+
+        }
+        else if (score >= 42 && SceneManager.GetActiveScene().name == "Level03")
+        { 
+            deactivateGate();
+        }
+    }
+
+    public void findGate(string name)
+    {
 
         if (gate == null)
         {
-            gate = GameObject.Find("Gate");
-            //gate = GameObject.Find("Gate02");
+            gate = GameObject.Find(name);
 
             //Debug.Log(gate.ToString());
         }
     }
 
-    void checkScore()
+    public void deactivateGate()
     {
-        if (score == 16 && SceneManager.GetActiveScene().name == "Level01")
-        {
-            endPanel.SetActive(true);     //Attempt 1
-            //GameObject.Find("EndPanel").SetActive(true);        //Attempt 2
-            gate.GetComponent<Gate>().deactivateGate();
-            //GameObject.Find("Gate").GetComponent<Gate>().openGate();
-        }
-        else if (score >= 32 && SceneManager.GetActiveScene().name == "Level02")
-        {
-            endPanel.SetActive(true);
-            //GameObject.Find("EndPanel").SetActive(true);
-            gate.GetComponent<Gate>().deactivateGate();
-            //GameObject.Find("Gate").GetComponent<Gate>().deactivateGate();
-        }
-        else if (score >= 42 && SceneManager.GetActiveScene().name == "Level03")
-        {
-
-            //GameObject.Find("Player").transform.position = new Vector3(2f, 1f, -2f);
-
-            gate.GetComponent<Gate>().deactivateGate();
-
-            //Debug.Log("Player Teleported");
-        }
+        gate.GetComponent<Gate>().deactivateGate();
     }
 
+    public void flipPanel(bool state)
+    {
+        endPanel.SetActive(state);
+    }
+
+    public GameObject findPanel(string name)
+    {
+        return GameObject.Find(name);
+    }
 }

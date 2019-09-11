@@ -22,20 +22,17 @@ public class PickUp : MonoBehaviour
         if(gameObject.tag == "Core01")
         {
             GameManager.instance.ChangeScore(1);
-            //gm.ChangeScore(1);
-            //Debug.Log("Collected Core 1");
+
         }
         else if(gameObject.tag == "Core02")
         {
             GameManager.instance.ChangeScore(5);
-            //gm.ChangeScore(5);
-            //Debug.Log("Collected Core 2");
+
         }
         else if(gameObject.tag == "Core03")
         {
             GameManager.instance.ChangeScore(10);
-            //gm.ChangeScore(10);
-            //Debug.Log("Collected Core 3");
+
         }
 
 

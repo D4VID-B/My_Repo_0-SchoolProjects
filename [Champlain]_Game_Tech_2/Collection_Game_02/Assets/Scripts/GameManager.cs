@@ -6,19 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-
-    public GameObject endPanel; //Deactivate in level 2 with a separate script
-    public GameObject gate;
-
     public static GameManager instance;
     public int score = 0;
 
+    GameObject gate, panel;
+
     void Awake()
     {
-        findGate("Gate");
-        findPanel("EndPanel");
-        flipPanel(false);
-
         if (instance == null)
         {
             instance = this;
@@ -34,7 +28,6 @@ public class GameManager : MonoBehaviour
 
     public void ChangeScore(int amount)
     {
-        //ScoreScript.instance.setScore(amount);
         score += amount;
 
         Debug.Log("Score: " + score);
@@ -47,49 +40,78 @@ public class GameManager : MonoBehaviour
     {
         if (score == 16 && SceneManager.GetActiveScene().name == "Level01")
         {
-            flipPanel(true);
-
-            deactivateGate();
-
+            openGate();
+            showPanel();
         }
         else if (score >= 32 && SceneManager.GetActiveScene().name == "Level02")
         {
-            endPanel = findPanel("EndPanel02");
-            
-            flipPanel(true);
-
-            deactivateGate();
-
+            openGate();
+            showPanel();
         }
         else if (score >= 42 && SceneManager.GetActiveScene().name == "Level03")
-        { 
-            deactivateGate();
-        }
-    }
-
-    public void findGate(string name)
-    {
-
-        if (gate == null)
         {
-            gate = GameObject.Find(name);
-
-            //Debug.Log(gate.ToString());
+            openGate();
         }
     }
 
-    public void deactivateGate()
+    public void initLevel01(string gateName, string panelName)
     {
-        gate.GetComponent<Gate>().deactivateGate();
+        gate = null;
+        panel = null;
+        gate = GameObject.Find(gateName);
+        panel = GameObject.Find(panelName);
+
+        if (panel != null)
+        {
+            panel.SetActive(false);
+        }
     }
 
-    public void flipPanel(bool state)
+    public void initLevel02(string gateName, string panelName)
     {
-        endPanel.SetActive(state);
+        gate = null;
+        panel = null;
+        gate = GameObject.Find(gateName);
+        panel = GameObject.Find(panelName);
+
+        if (panel != null)
+        {
+            panel.SetActive(false);
+        }
+        
     }
 
-    public GameObject findPanel(string name)
+    public void initLevel03(string gateName)
     {
-        return GameObject.Find(name);
+        gate = null;
+        panel = null;
+        gate = GameObject.Find(gateName);
+        
+    }
+
+    public string getScore()
+    {
+        return score.ToString();
+    }
+
+    public void setScore(int amount)
+    {
+        score = amount;
+    }
+ 
+    void openGate()
+    {
+        if(gate != null)
+        {
+            gate.SetActive(false);
+        }
+    }
+
+    void showPanel()
+    {
+        if(panel != null)
+        {
+            panel.SetActive(true);
+        }
     }
 }

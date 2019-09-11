@@ -9,7 +9,7 @@ public class WriteScore : MonoBehaviour
 
     public void writeFinalScore()
     {
-        finalScore.text = GameManager.instance.score.ToString();
+        finalScore.text = GameManager.instance.getScore();
     }
 
 }

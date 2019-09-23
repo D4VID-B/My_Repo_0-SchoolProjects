@@ -2119,6 +2119,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Life00
       objectReference: {fileID: 0}
+    - target: {fileID: 4274152649063633447, guid: bab09814667081b42a7800873ef7e250,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2262891809793099267, guid: bab09814667081b42a7800873ef7e250,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     public Image icon;
 
     //text
-    string message = "";
+    //string message = "";
     //bool canShowBubble = true;
 
     //UI elements

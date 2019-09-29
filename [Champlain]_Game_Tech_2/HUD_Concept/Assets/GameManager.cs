@@ -31,10 +31,15 @@ public class GameManager : MonoBehaviour
     public float affinity = 0f;
     public float minAffinity = -100f;
     public float maxAffinity = 100f;
+    public Image meter;
+    int ammoCount;
+
     //special with cool down
     public bool isSpecialActive;
     public float coolDown = 0f;
     public float coolDownMax = 180f;
+    public Image icon;
+
     //text
     string message = "";
     //bool canShowBubble = true;
@@ -60,7 +65,9 @@ public class GameManager : MonoBehaviour
         ammo = defaultAmmo;
 
         //Affinity
-        affinity = 0;
+        affinity = maxAffinity;
+        ammoCount = defaultAmmo;
+
         //Special(
         isSpecialActive = true;
         //Text
@@ -135,27 +142,29 @@ public class GameManager : MonoBehaviour
             addGrenade();
 
         }
-        if(Input.GetKeyDown(KeyCode.C))
+        if(Input.GetKeyDown(KeyCode.R))
         {
             reloadBattery();
+            affinity = maxAffinity;
+            updateAffinity();
         }
-        if(Input.GetKeyDown(KeyCode.V))
+        if(Input.GetKeyDown(KeyCode.T))
         {
             addAmmo();
         }
     }
     void CheckAffinity()
     {
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetMouseButton(0))
         {
             RemoveAffinity();
 
         }
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            AddAffinity();
+        //if (Input.GetKeyDown(KeyCode.L))
+        //{
+        //    AddAffinity();
 
-        }
+        //}
     }
     void CheckSpecial()
     {
@@ -175,9 +184,13 @@ public class GameManager : MonoBehaviour
         if(!isSpecialActive)
         {
             coolDown--;
+            //float per = coolDown / coolDownMax;
+            
             if (coolDown == 0f)
             {
                 isSpecialActive = true;
+                icon.DOFade(1f, 0.5f);
+
             }
         }
     }
@@ -277,14 +290,33 @@ public class GameManager : MonoBehaviour
         isSpecialActive = false;
         coolDown = coolDownMax;
         //Do Something
+        icon.DOFade(0f, 0.5f);
     }
     void RemoveAffinity()
     {
         affinity--;
-        if (affinity < minAffinity)
+        //if (affinity < minAffinity)
+        //{
+        //    affinity = minAffinity;
+
+        //}
+
+        if(affinity <= 0)
         {
-            affinity = minAffinity;
+            if(ammoCount != 0)
+            {
+                reloadBattery();
+                affinity = maxAffinity;
+                ammoCount -= 1;
+            }
+            
         }
+
+        if(Input.GetMouseButton(1))
+        {
+            affinity -= 49f;
+        }
+        updateAffinity();
     }
     void AddAffinity()
     {
@@ -293,6 +325,12 @@ public class GameManager : MonoBehaviour
         {
             affinity = maxAffinity;
         }
+        updateAffinity();
+    }
+    void updateAffinity()
+    {
+        float per = affinity / maxAffinity;
+        meter.fillAmount = per;
     }
 
     //Spending 'Nades and Ammo
@@ -383,6 +421,7 @@ public class GameManager : MonoBehaviour
         {
             //battery.SetActive(false);
             battery.gameObject.GetComponent<Image>().color = Color.red;
+            
         }
 
         for (int i = 0; i < ammo; i++)

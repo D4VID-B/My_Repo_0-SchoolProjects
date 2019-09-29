@@ -5,10 +5,12 @@ using DG.Tweening;
 
 public class Inventory : MonoBehaviour
 {
-    bool isOpen = true;
+    bool isOpen = false;
     bool isTweening = false;
     public GameObject itemPrefab;
     public GameObject content;
+
+    public GameObject otherPanel;
 
     public void initItemList()
     {
@@ -23,7 +25,15 @@ public class Inventory : MonoBehaviour
             item.GetComponent<Item>().initItem(GameManager.instance.inventoryList[i]);
         }
     }
-    
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Toggle();
+        }
+    }
+
     public void Toggle()
     {
         if(!isTweening)
@@ -44,13 +54,17 @@ public class Inventory : MonoBehaviour
     void close()
     {
         isOpen = false;
-        GetComponent<RectTransform>().DOAnchorPosX(250f, 0.25f).OnComplete(reset);
+        otherPanel.GetComponent<RectTransform>().DOAnchorPosX(-5f, 0.5f);
+        GetComponent<RectTransform>().DOAnchorPosX(255f, 0.25f).OnComplete(reset);
     }
 
     void open()
     {
         isOpen = true;
-        GetComponent<RectTransform>().DOAnchorPosX(0f, 0.5f).OnComplete(reset);
+        otherPanel.GetComponent<RectTransform>().DOAnchorPosX(255f, 0.25f);
+        GetComponent<RectTransform>().DOAnchorPosX(-5f, 0.5f).OnComplete(reset);
+        
+
     }
 
     void reset()

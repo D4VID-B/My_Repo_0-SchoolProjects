@@ -12,7 +12,7 @@ public class Item : MonoBehaviour
 
     public void initItem(GameObject item)
     {
-        itemName.text = item.name;
+        itemName.text = item.name;//Fix
         Instantiate(item, imageHolder);
         currentItem = item;
     }
@@ -20,12 +20,19 @@ public class Item : MonoBehaviour
     public void activate_Use()
     {
         Debug.Log("Consumed: " + currentItem);
+
+        if (currentItem.tag == "Health")
+        {
+            GameManager.instance.IncreaseHealth();
+        }
+
         activate_Remove();
     }
 
     public void activate_Remove()
     {
+        Debug.Log(currentItem);
         GameManager.instance.inventoryList.Remove(currentItem);
-        GameObject.Find("Inventory").GetComponent<Inventory>().initItemList();
+        GameObject.Find("StimInv").GetComponent<Inventory>().initItemList();
     }
 }

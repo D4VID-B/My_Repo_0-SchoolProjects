@@ -8,9 +8,19 @@ public class Ping : MonoBehaviour
     {
         if(collision.tag == "Enemy")
         {
-            Debug.Log("Found Enemy" + collision.gameObject.ToString());
-            //collision.gameObject.GetComponent<Animation>().Play("EnemyPing");
-            collision.gameObject.GetComponent<Animation>().enabled = true;
+            //Debug.Log("Found Enemy" + collision.gameObject.ToString());
+            collision.gameObject.GetComponent<Animator>().SetBool("Detected", true);
+            //collision.gameObject.GetComponent<Animation>().enabled = true;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Enemy")
+        {
+            //Debug.Log("Found Enemy" + collision.gameObject.ToString());
+            collision.gameObject.GetComponent<Animator>().SetBool("Detected", false);
+            //collision.gameObject.GetComponent<Animation>().enabled = true;
         }
     }
 }

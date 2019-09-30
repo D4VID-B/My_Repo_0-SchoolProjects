@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     public float maxHealth = 100f;
     public float health;
     public float healthStep = 1.0f;
+    public Image damage;
+    private IEnumerator screenFlash;
 
     //Grenades + Ammo
     public int grenades;
@@ -59,7 +61,7 @@ public class GameManager : MonoBehaviour
     void Init(){
         //Health
         health = maxHealth;
-        
+        damage.gameObject.SetActive(false);
         //Ammo
         grenades = defaultGrenades;
         ammo = defaultAmmo;
@@ -196,93 +198,10 @@ public class GameManager : MonoBehaviour
     }
     void CheckText()
     {
-        //if (Input.GetKeyDown(KeyCode.T))
-        //{
-        //    showBubble();
-            
-        //}
-        //if (Input.GetKeyDown(KeyCode.W))
-        //{
-        //    DisplayWordsOfText();
-        //}
-        //if (Input.GetKeyDown(KeyCode.C))
-        //{
-        //    ClearMessage();
-        //}
 
     }
 
-    //void showBubble()
-    //{
-    //    if(canShowBubble)
-    //    {
-    //        bubbleText.transform.parent.gameObject.SetActive(true);
-    //        string str = GetLineOfText();
-    //        Debug.Log(GetLineOfText());
-    //        bubbleText.text = str;
-
-    //        bubbleText.transform.parent.DOScale(0f, .5f).From().SetEase(Ease.OutCirc);
-    //        canShowBubble = false;
-    //    }
-        
-    //}
-    //void resetBubble()
-    //{
-    //    canShowBubble = true;
-    //    bubbleText.transform.parent.DOScale(1f, 0f);
-    //    bubbleText.transform.parent.gameObject.SetActive(false);
-    //}
-    //public void closeBubble()
-    //{
-    //    bubbleText.transform.parent.DOScale(0f, 0.25f).OnComplete(resetBubble);
-    //}
-
-    //void AutoDisplayText()
-    //{
-    //    message += GetLineOfText() + "\n";
-    //    Debug.Log("****Message****\n"+message);
-    //    if(messageTF!=null)
-    //        messageTF.text = message;
-    //}
-    //void ClearMessage()
-    //{
-    //    message = "";
-    //    if (messageTF != null)
-    //        messageTF.text = message;
-    //}
-    //void DisplayWordsOfText()
-    //{
-    //    StartCoroutine("ShowWords");
-    //}
-    //IEnumerator ShowWords()
-    //{
-    //    string str = GetLineOfText();
-    //    string[] strArray = str.Split(' ');
-    //    string newString = "";
-    //    for(int i = 0; i < strArray.Length; i++)
-    //    {
-    //        newString += strArray[i] + " ";
-    //        Debug.Log(newString);
-    //        yield return new WaitForSeconds(0.5f);
-    //    }
-
-    //}
-
-    //string GetLineOfText()
-    //{
-    //    string str="";
-    //    int randomNumWords = Random.Range(4, 21);
-
-    //    int randomStartPos = Random.Range(0, loremIpsumArray.Length-randomNumWords);
-
-    //    for (int i = randomStartPos; i < randomStartPos + randomNumWords; i++)
-    //    {
-
-    //        str += loremIpsumArray[i] + " ";
-    //    }
-    //    return str;
-        
-    //}
+    
 
     void DoSpecial()
     {
@@ -376,16 +295,43 @@ public class GameManager : MonoBehaviour
     {
         health += healthStep;
         if (health > maxHealth) health = maxHealth;
-        updateHealth();
+        updateHealth(false);
     }
     void DecreaseHealth()
     {
         health -= healthStep;
         if (health < minHealth) health = minHealth;
 
-        Camera.main.transform.DOShakePosition(1f).OnComplete(resetCamera);
+        //Shake the camera
+        //Camera.main.transform.DOShakePosition(1f).OnComplete(resetCamera);
 
-        updateHealth();
+        //Flash screen
+        flashScreen();
+
+        updateHealth(true);
+    }
+
+    void flashScreen()
+    {
+        //Color opacue = new Color(1, 1, 1, 1);
+
+        //damage.color = Color.Lerp(damage.color, opacue, 20*Time.deltaTime);
+
+        screenFlash = waitAndReset(.1f);
+        StartCoroutine(screenFlash);
+    }
+
+    private IEnumerator waitAndReset(float waitTime)
+    {
+        damage.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(waitTime);
+
+        //Color transparent = new Color(1, 1, 1, 0);
+        //damage.color =  Color.Lerp(damage.color, transparent, 20 * Time.deltaTime);
+
+        damage.gameObject.SetActive(false);
+
     }
 
     void resetCamera()
@@ -393,10 +339,16 @@ public class GameManager : MonoBehaviour
         Camera.main.transform.DOMove(new Vector3(0f, 1f, -10f), 0.25f);
     }
 
-    void updateHealth()
+    void updateHealth(bool takenDamage)
     {
         float per = health / maxHealth;
         healthFill.fillAmount = per;
+
+        //if(takenDamage)
+        //{
+        //    Color transparent = new Color(1, 1, 1, 0);
+        //    damage.color = Color.Lerp(damage.color, transparent, 20 * Time.deltaTime);
+        //}
     }
 
     void updateGrenades()

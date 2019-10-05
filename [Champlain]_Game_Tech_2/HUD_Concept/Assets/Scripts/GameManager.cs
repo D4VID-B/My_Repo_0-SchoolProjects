@@ -4,6 +4,8 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Linq;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -78,6 +80,7 @@ public class GameManager : MonoBehaviour
 
         inventoryList = new List<GameObject>();
 
+        instance = this;
     }
 
     // Update is called once per frame
@@ -114,7 +117,7 @@ public class GameManager : MonoBehaviour
     {
         int rNum = Random.Range(0, itemsArray.Length);
         inventoryList.Add(itemsArray[rNum]);
-        //inventoryList = inventoryList.OrderBy(go => go.name).ToList();
+        inventoryList = inventoryList.OrderBy(go => go.name).ToList();
         inventory.initItemList();
 
     }
@@ -291,7 +294,7 @@ public class GameManager : MonoBehaviour
         updateAmmo();
     }
 
-    void IncreaseHealth()
+    public void IncreaseHealth()
     {
         health += healthStep;
         if (health > maxHealth) health = maxHealth;

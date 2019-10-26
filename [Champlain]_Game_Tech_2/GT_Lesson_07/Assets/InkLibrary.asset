@@ -9,21 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc234ab28a32840f5adfb84a075bc023, type: 3}
+  m_Script: {fileID: 11500000, guid: 4296a262d1e2dcc4d9a5b4433af61858, type: 3}
   m_Name: InkLibrary
   m_EditorClassIdentifier: 
   inkLibrary:
   - compileAutomatically: 0
-    inkAsset: {fileID: 102900000, guid: 1460e815e969b43b8a83a7caa8b48c27, type: 3}
+    inkAsset: {fileID: 102900000, guid: 4b24e0259dd60514ab36cc28a413febe, type: 3}
     jsonAssetPath: {fileID: 0}
-    jsonAsset: {fileID: 4900000, guid: 6cf48bb6d89824cc69e35b43f9a1aca6, type: 3}
+    jsonAsset: {fileID: 4900000, guid: d5c79fd21d9e04e41a9834ba116d080b, type: 3}
   - compileAutomatically: 0
-    inkAsset: {fileID: 102900000, guid: fd0e1f5fd2b372c45858fd62918a31c5, type: 3}
+    inkAsset: {fileID: 102900000, guid: 1b7c8de345804e145a0c13f3534983e9, type: 3}
     jsonAssetPath: {fileID: 0}
-    jsonAsset: {fileID: 4900000, guid: b5ba22f855ebbcb4ebb6adb3d5e0dd8e, type: 3}
+    jsonAsset: {fileID: 4900000, guid: f33b8d612530f8649bf65facbd4ecf26, type: 3}
   - compileAutomatically: 0
-    inkAsset: {fileID: 102900000, guid: 65c11b7b19458c64181fbfb191b2269c, type: 3}
+    inkAsset: {fileID: 102900000, guid: 92cbd918548e6d7429e7a63b40fe1323, type: 3}
     jsonAssetPath: {fileID: 0}
-    jsonAsset: {fileID: 4900000, guid: 7e1fcfa576b02d943a881042c66b51f2, type: 3}
+    jsonAsset: {fileID: 4900000, guid: af839a280bd6d4b45b29dd197e5c4e3d, type: 3}
   pendingCompilationStack: []
   compilationStack: []

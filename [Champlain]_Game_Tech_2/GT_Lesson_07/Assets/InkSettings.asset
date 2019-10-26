@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 983af1b6602bf416b9928d40b37a38bd, type: 3}
+  m_Script: {fileID: 11500000, guid: 88f82db8acd8c4545af9da7ba8b0db07, type: 3}
   m_Name: InkSettings
   m_EditorClassIdentifier: 
   templateFile: {fileID: 0}

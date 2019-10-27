@@ -10,10 +10,28 @@ public class Collector : MonoBehaviour
 {
     public enum ObjectClass
     {
-
+        GameObject,
+        Transform,
+        Entity,
+        Tag,
+        Layer,
+        Name
     }
-
     public ObjectClass ObjectType;
+
+    public GameObject theObject;
+    public Transform theTransform;
+    public Entity theEntity;
+    public string objectTag;
+    public string objectLayer;
+    public string objectName;
+
+    public enum SearchScope
+    {
+        Search_Scene,
+        Search_In_Parent
+    }
+    public SearchScope Scope;
 
     // Start is called before the first frame update
     void Start()

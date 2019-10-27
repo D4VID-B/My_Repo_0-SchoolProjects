@@ -9,16 +9,25 @@ public class SpawnAtPos : MonoBehaviour
     public Vector3 customSpawnRotation;
     public Vector3 customSpawnScale;
 
-
-    // Start is called before the first frame update
-    void Start()
+    public enum ObjectType
     {
-        
+        GameObject,
+        Prefab
     }
+    public ObjectType Type;
 
-    // Update is called once per frame
-    void Update()
+    public enum SpawnChoice
     {
-        
+        CustomTransform,
+        CameraView
+    }
+    public SpawnChoice Choice;
+
+
+    public void spawn()
+    {
+        //Spawn object based on spawn choice
+
+        Debug.Log("Spawnign Object");
     }
 }

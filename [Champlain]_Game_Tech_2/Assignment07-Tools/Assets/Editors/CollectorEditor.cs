@@ -19,7 +19,18 @@ public class CollectorEditor : Editor
 
         if(instance.ObjectType == Collector.ObjectClass.GameObject)
         {
-            instance.theObject = (GameObject)EditorGUILayout.ObjectField("Game Object: ", instance.gameObject, typeof(GameObject), true);
+            if (instance.SearchBy == Collector.ObjectSearchType.Layer)
+            {
+                instance.objectLayer = EditorGUILayout.TextField("Game Layer: ", instance.objectLayer);
+            }
+            else if (instance.SearchBy == Collector.ObjectSearchType.Tag)
+            {
+                instance.objectTag = EditorGUILayout.TextField("Game Tag: ", instance.objectTag);
+            }
+            else if (instance.SearchBy == Collector.ObjectSearchType.Name)
+            {
+                instance.objectName = EditorGUILayout.TextField("Object Name [(contains)]: ", instance.objectName);
+            }
         }
         else if (instance.ObjectType == Collector.ObjectClass.Entity)
         {
@@ -29,18 +40,7 @@ public class CollectorEditor : Editor
         {
             instance.theTransform = (Transform)EditorGUILayout.ObjectField("Transform: ", instance.theTransform, typeof(Transform), true);
         }
-        else if (instance.ObjectType == Collector.ObjectClass.Layer)
-        {
-            instance.objectLayer = EditorGUILayout.TextField("Game Layer: ", instance.objectLayer);
-        }
-        else if (instance.ObjectType == Collector.ObjectClass.Tag)
-        {
-            instance.objectTag = EditorGUILayout.TextField("Game Tag: ", instance.objectTag);
-        }
-        else if (instance.ObjectType == Collector.ObjectClass.Name)
-        {
-            instance.objectName = EditorGUILayout.TextField("Object Name [(contains)]: ", instance.objectName);
-        }
+        
 
         EditorGUILayout.HelpBox("Select search scope", MessageType.None);
         instance.Scope = (Collector.SearchScope)EditorGUILayout.EnumPopup("Object Type", instance.Scope);

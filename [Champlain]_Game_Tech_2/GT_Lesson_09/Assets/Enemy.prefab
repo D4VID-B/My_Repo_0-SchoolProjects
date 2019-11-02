@@ -102,9 +102,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6037079926916795473}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0dd1f54462da3aa45ade59afafb008f3, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ec7d617be1898e4898f4883efc447e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 34
+  damage: 0
   armor: 0
   weapon: {fileID: 0}

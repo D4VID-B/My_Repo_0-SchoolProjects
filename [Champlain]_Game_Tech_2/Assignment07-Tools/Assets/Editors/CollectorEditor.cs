@@ -21,7 +21,7 @@ public class CollectorEditor : Editor
         {
             if (instance.SearchBy == Collector.ObjectSearchType.Layer)
             {
-                instance.objectLayer = EditorGUILayout.TextField("Game Layer: ", instance.objectLayer);
+                instance.objectLayer = EditorGUILayout.DelayedIntField("Game Layer: ", instance.objectLayer);
             }
             else if (instance.SearchBy == Collector.ObjectSearchType.Tag)
             {

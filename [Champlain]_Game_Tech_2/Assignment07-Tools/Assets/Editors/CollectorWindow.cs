@@ -39,12 +39,13 @@ public class CollectorWindow : EditorWindow
 
             if (instance.SearchBy == Collector.ObjectSearchType.Layer)
             {
-                instance.objectLayer = EditorGUILayout.TextField("Game Layer: ", instance.objectLayer);
+                instance.objectLayer = EditorGUILayout.IntSlider("Game Layer: ", instance.objectLayer, 8, 31);
                 listString = starter;
                 foreach (GameObject obj in instance.objectList)
                 {
-                    listString += " " + obj.ToString() + " \n";
+                    listString += " " + obj.ToString() + " ";
                 }
+                EditorGUILayout.LabelField("List Size: ", instance.objectList.Count.ToString());
 
                 EditorGUILayout.LabelField("Object List: ", listString);
             }
@@ -54,19 +55,21 @@ public class CollectorWindow : EditorWindow
                 listString = starter;
                 foreach (GameObject obj in instance.objectList)
                 {
-                    listString += " " + obj.ToString() + " \n";
+                    listString += " " + obj.ToString() + " ";
                 }
-
+                EditorGUILayout.LabelField("List Size: ", instance.objectList.Count.ToString());
+               
                 EditorGUILayout.LabelField("Object List: ", listString);
             }
             else if (instance.SearchBy == Collector.ObjectSearchType.Name)
             {
-                instance.objectName = EditorGUILayout.TextField("Object Name [(contains)]: ", instance.objectName);
+                instance.objectName = EditorGUILayout.TextField("Object Name Contains: ", instance.objectName);
                 listString = starter;
                 foreach (GameObject obj in instance.objectList)
                 {
-                    listString += " " + obj.ToString() + " \n";
+                    listString += " " + obj.ToString() + " ";
                 }
+                EditorGUILayout.LabelField("List Size: ", instance.objectList.Count.ToString());
 
                 EditorGUILayout.LabelField("Object List: ", listString);
             }
@@ -79,6 +82,7 @@ public class CollectorWindow : EditorWindow
             {
                 listString += " " + obj.ToString() + " \n";
             }
+            EditorGUILayout.LabelField("List Size: ", instance.entityList.Count.ToString());
 
             EditorGUILayout.LabelField("Entity List: ", listString);
         }
@@ -90,6 +94,7 @@ public class CollectorWindow : EditorWindow
             {
                 listString += " " + obj.ToString() + " \n";
             }
+            EditorGUILayout.LabelField("List Size: ", instance.transformList.Count.ToString());
 
             EditorGUILayout.LabelField("Transform List: ", listString);
         }
@@ -102,6 +107,10 @@ public class CollectorWindow : EditorWindow
         {
             searchingInParent = true;
             instance.parent = (GameObject)EditorGUILayout.ObjectField("Parent to Search: ", instance.parent, typeof(GameObject), true);
+        }
+        else
+        {
+            searchingInParent = false;
         }
 
         EditorGUILayout.HelpBox("Initiate Search", MessageType.None);
@@ -139,25 +148,33 @@ public class CollectorWindow : EditorWindow
         GUILayout.BeginHorizontal();
         if (GUILayout.Button("Sort List"))
         {
-
+            instance.sortList(instance.ObjectType);
+            assignToParent = false;
+            renameAll = false;
         }
 
         if (GUILayout.Button("Clear List"))
         {
-
+            instance.clearList(instance.ObjectType);
+            assignToParent = false;
+            renameAll = false;
         }
         GUILayout.EndHorizontal();
 
         GUILayout.BeginHorizontal();
         if (GUILayout.Button("Rename All"))
         {
+            assignToParent = false;
             renameAll = true;
         }
+        
 
         if (GUILayout.Button("Assign to Parent"))
         {
+            renameAll = false;
             assignToParent = true;
         }
+       
 
         GUILayout.EndHorizontal();
 
@@ -167,11 +184,31 @@ public class CollectorWindow : EditorWindow
         {
             instance.baseName = EditorGUILayout.TextField("New Base Name: ", instance.baseName);
             instance.startIndex = EditorGUILayout.DelayedIntField("Starting Index: ", instance.startIndex);
+
+            if(GUILayout.Button("Rename"))
+            {
+                foreach(GameObject obj in instance.objectList)
+                {
+                    obj.name = instance.baseName + "_" + instance.startIndex;
+                    instance.startIndex++;
+                }
+            }
         }
 
         if(assignToParent)
         {
             instance.parent = (GameObject)EditorGUILayout.ObjectField("Parent Object", instance.parent, typeof(GameObject), true);
+
+            if(GUILayout.Button("Assign"))
+            {
+                foreach(GameObject obj in instance.objectList)
+                {
+                    obj.transform.parent = instance.parent.transform;
+
+                }
+            }
         }
+
+        //this.Repaint();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 /// <summary>
@@ -37,7 +38,9 @@ public class Collector : MonoBehaviour
     public Transform theTransform;
     public Entity theEntity;
     public string objectTag;
-    public string objectLayer;
+
+    [Range(8, 31)]
+    public int objectLayer;
     public string objectName;
 
     public bool listEmpty;
@@ -60,21 +63,6 @@ public class Collector : MonoBehaviour
 
 #endregion
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (objectList != null || transformList != null || entityList != null)
-        {
-            listEmpty = true;
-        }
-        else listEmpty = false;
-    }
 
     public void fillObjectList(ObjectSearchType type, bool searchInParent)
     {
@@ -82,23 +70,80 @@ public class Collector : MonoBehaviour
         {
             if (type == ObjectSearchType.Layer)
             {
-
+                foreach (Transform child in parent.transform)
+                {
+                    if (child.gameObject.layer == objectLayer && notDuplicate(child))
+                    {
+                        objectList.Add(child.gameObject);
+                        listEmpty = true;
+                    }
+                }
             }
             else if (type == ObjectSearchType.Name)
             {
-
+                foreach (Transform child in parent.transform)
+                {
+                    if (child.gameObject.name.Contains(objectName) && notDuplicate(child))
+                    {
+                        objectList.Add(child.gameObject);
+                        listEmpty = true;
+                    }
+                }
             }
             else if (type == ObjectSearchType.Tag)
             {
-
+                foreach (Transform child in parent.transform)
+                {
+                    if (child.gameObject.tag == objectTag && notDuplicate(child))
+                    {
+                        objectList.Add(child.gameObject);
+                        listEmpty = true;
+                    }
+                }
             }
         }
         else
         {
+            if (type == ObjectSearchType.Layer)
+            {
+                foreach (GameObject obj in SceneManager.GetActiveScene().GetRootGameObjects())
+                {
+                    if (obj.layer == objectLayer && notDuplicate(obj))
+                    {
+                        objectList.Add(obj);
+                        listEmpty = true;
+                    }
+                }
+            }
+            else if (type == ObjectSearchType.Name)
+            {
+                foreach (GameObject obj in SceneManager.GetActiveScene().GetRootGameObjects())
+                {
+                    if (obj.name.Contains(objectName) && notDuplicate(obj))
+                    {
+                        objectList.Add(obj);
+                        listEmpty = true;
 
+                    }
+                }
+            }
+            else if (type == ObjectSearchType.Tag)
+            {
+                foreach (GameObject obj in SceneManager.GetActiveScene().GetRootGameObjects())
+                {
+                    if (obj.tag == objectTag && notDuplicate(obj))
+                    {
+                        objectList.Add(obj);
+                        listEmpty = true;
+
+                    }
+                }
+            }
         }
         
     }
+
+
 
     public void fillTransformList(bool searchInParent)
     {
@@ -123,4 +168,96 @@ public class Collector : MonoBehaviour
 
         }
     }
+
+    #region Duplicate Checks
+    bool notDuplicate(GameObject target)
+    {
+        bool isPresent = true;
+        foreach (GameObject obj in objectList)
+        {
+            if (target == obj)
+            {
+                isPresent = false;
+            }
+        }
+
+        return isPresent;
+    }
+
+    bool notDuplicate(Transform target)
+    {
+        bool isPresent = true;
+        foreach (Transform obj in transformList)
+        {
+            if (target == obj)
+            {
+                isPresent = false;
+            }
+        }
+
+        return isPresent;
+    }
+
+    bool notDuplicate(Entity target)
+    {
+        bool isPresent = true;
+        foreach (Entity obj in entityList)
+        {
+            if (target == obj)
+            {
+                isPresent = false;
+            }
+        }
+
+        return isPresent;
+    }
+
+    #endregion
+
+    #region List Functions
+    public void sortList(ObjectClass type)
+    {
+        if(type == ObjectClass.Entity)
+        {
+            Debug.Log("Sorting Entity List!");
+            entityList.Sort();
+        }
+        else if(type == ObjectClass.Transform)
+        {
+            Debug.Log("Sorting Transform List!");
+            transformList.Sort();
+
+        }
+        else if(type == ObjectClass.GameObject)
+        {
+            Debug.Log("Sorting Object List!");
+            objectList.Sort();
+        }
+    }
+
+    public void clearList(ObjectClass type)
+    {
+        if (type == ObjectClass.Entity)
+        {
+            Debug.Log("Clearing Entity List!");
+            entityList.Clear();
+            listEmpty = false;
+
+        }
+        else if (type == ObjectClass.Transform)
+        {
+            Debug.Log("Clearing Transform List!");
+            transformList.Clear();
+            listEmpty = false;
+
+
+        }
+        else if (type == ObjectClass.GameObject)
+        {
+            Debug.Log("Clearing Object List!");
+            objectList.Clear();
+            listEmpty = false;
+        }
+    }
+    #endregion
 }

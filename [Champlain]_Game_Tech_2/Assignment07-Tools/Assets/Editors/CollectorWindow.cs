@@ -25,7 +25,7 @@ public class CollectorWindow : EditorWindow
 
     private void OnGUI()
     {
-        EditorGUILayout.HelpBox("An incapsulation of the list class, to speed up the collection and processing of various user-defined objects.", MessageType.Info);
+        EditorGUILayout.HelpBox("A simplified accessor of the list class, to speed up the collection and processing of various user-defined objects.", MessageType.Info);
 
         instance = (Collector)EditorGUILayout.ObjectField("Collector Script", instance, typeof(Collector), true);
 
@@ -76,11 +76,11 @@ public class CollectorWindow : EditorWindow
         }
         else if (instance.ObjectType == Collector.ObjectClass.Entity)
         {
-            instance.theEntity = (Entity)EditorGUILayout.ObjectField("Entity: ", instance.theEntity, typeof(Entity), true);
+            //instance.theEntity = (Entity)EditorGUILayout.ObjectField("Entity: ", instance.theEntity, typeof(Entity), true);
             listString = starter;
             foreach (Entity obj in instance.entityList)
             {
-                listString += " " + obj.ToString() + " \n";
+                listString += " " + obj.ToString() + " ";
             }
             EditorGUILayout.LabelField("List Size: ", instance.entityList.Count.ToString());
 
@@ -92,7 +92,7 @@ public class CollectorWindow : EditorWindow
             listString = starter;
             foreach (Transform obj in instance.transformList)
             {
-                listString += " " + obj.ToString() + " \n";
+                listString += " " + obj.ToString() + " ";
             }
             EditorGUILayout.LabelField("List Size: ", instance.transformList.Count.ToString());
 
@@ -120,7 +120,7 @@ public class CollectorWindow : EditorWindow
             {
                 instance.fillTransformList(searchingInParent);
             }
-            else if(instance.ObjectType == Collector.ObjectClass.Entity && instance.theEntity != null)
+            else if(instance.ObjectType == Collector.ObjectClass.Entity)
             {
                 instance.fillEntityList(searchingInParent);
             }

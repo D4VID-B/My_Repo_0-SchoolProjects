@@ -50,16 +50,15 @@ public class Collector : MonoBehaviour
 
 #region The Lists
 
-    [SerializeField]
+    //[SerializeField]
     public List<GameObject> objectList;
 
-    [SerializeField]
+    //[SerializeField]
     public List<Transform> transformList;
 
-    [SerializeField]
+    //[SerializeField]
     public List<Entity> entityList;
 
-    public List<string> printList;
 
 #endregion
 
@@ -161,11 +160,27 @@ public class Collector : MonoBehaviour
     {
         if(searchInParent)
         {
-
+            foreach (Transform child in parent.transform)
+            {
+                Entity temp = child.gameObject.GetComponent<Entity>();
+                if (temp != null && notDuplicate(temp))
+                {
+                    entityList.Add(temp);
+                    listEmpty = true;
+                }
+            }
         }
         else
         {
-
+            foreach (GameObject obj in SceneManager.GetActiveScene().GetRootGameObjects())
+            {
+                Entity temp = obj.GetComponent<Entity>();
+                if (temp != null && notDuplicate(temp))
+                {
+                    entityList.Add(temp);
+                    listEmpty = true;
+                }
+            }
         }
     }
 

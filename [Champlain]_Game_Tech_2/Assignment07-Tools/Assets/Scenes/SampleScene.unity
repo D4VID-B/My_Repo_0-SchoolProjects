@@ -549,7 +549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72b862ccc76ba054b9b73cc0234115c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjectType: 0
+  ObjectType: 2
   SearchBy: 2
   Scope: 0
   theObject: {fileID: 1173478512}
@@ -558,16 +558,18 @@ MonoBehaviour:
   objectTag: TestTag
   objectLayer: 8
   objectName: Blarg
-  listEmpty: 1
+  listEmpty: 0
   parent: {fileID: 1146725741}
   baseName: NewBlarg
   startIndex: 0
   objectList:
   - {fileID: 828174411}
   - {fileID: 1280715513}
+  - {fileID: 1195851585}
+  - {fileID: 350235324}
+  - {fileID: 1718749289}
   transformList: []
   entityList: []
-  printList: []
 --- !u!114 &1173478516
 MonoBehaviour:
   m_ObjectHideFlags: 0

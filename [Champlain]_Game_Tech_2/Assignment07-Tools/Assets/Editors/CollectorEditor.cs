@@ -36,10 +36,6 @@ public class CollectorEditor : Editor
         {
             instance.theEntity = (Entity)EditorGUILayout.ObjectField("Entity: ", instance.theEntity, typeof(Entity), true);
         }
-        else if (instance.ObjectType == Collector.ObjectClass.Transform)
-        {
-            instance.theTransform = (Transform)EditorGUILayout.ObjectField("Transform: ", instance.theTransform, typeof(Transform), true);
-        }
         
 
         EditorGUILayout.HelpBox("Select search scope", MessageType.None);

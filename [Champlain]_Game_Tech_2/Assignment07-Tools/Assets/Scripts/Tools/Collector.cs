@@ -13,7 +13,6 @@ public class Collector : MonoBehaviour
     public enum ObjectClass
     {
         GameObject,
-        Transform,
         Entity,
     }
     public ObjectClass ObjectType;
@@ -28,7 +27,8 @@ public class Collector : MonoBehaviour
 
     public enum SearchScope
     {
-        Search_Scene,
+        Search_Scene_Root_Only,
+        Search_Scene_ALL_Parents,
         Search_In_Parent
     }
     public SearchScope Scope;
@@ -43,8 +43,10 @@ public class Collector : MonoBehaviour
     public int objectLayer;
     public string objectName;
 
-    public bool listEmpty;
+    public bool listEmpty, entityListEmpty, transformListEmpty, objectListEmpty;
+
     public GameObject parent;
+
     public string baseName;
     public int startIndex;
 
@@ -52,9 +54,6 @@ public class Collector : MonoBehaviour
 
     //[SerializeField]
     public List<GameObject> objectList;
-
-    //[SerializeField]
-    public List<Transform> transformList;
 
     //[SerializeField]
     public List<Entity> entityList;
@@ -71,9 +70,10 @@ public class Collector : MonoBehaviour
             {
                 foreach (Transform child in parent.transform)
                 {
-                    if (child.gameObject.layer == objectLayer && notDuplicate(child))
+                    if (child.gameObject.layer == objectLayer && notDuplicate(child.gameObject))
                     {
                         objectList.Add(child.gameObject);
+                        objectListEmpty = true;
                         listEmpty = true;
                     }
                 }
@@ -82,9 +82,10 @@ public class Collector : MonoBehaviour
             {
                 foreach (Transform child in parent.transform)
                 {
-                    if (child.gameObject.name.Contains(objectName) && notDuplicate(child))
+                    if (child.gameObject.name.Contains(objectName) && notDuplicate(child.gameObject))
                     {
                         objectList.Add(child.gameObject);
+                        objectListEmpty = true;
                         listEmpty = true;
                     }
                 }
@@ -93,9 +94,10 @@ public class Collector : MonoBehaviour
             {
                 foreach (Transform child in parent.transform)
                 {
-                    if (child.gameObject.tag == objectTag && notDuplicate(child))
+                    if (child.gameObject.tag == objectTag && notDuplicate(child.gameObject))
                     {
                         objectList.Add(child.gameObject);
+                        objectListEmpty = true;
                         listEmpty = true;
                     }
                 }
@@ -110,6 +112,7 @@ public class Collector : MonoBehaviour
                     if (obj.layer == objectLayer && notDuplicate(obj))
                     {
                         objectList.Add(obj);
+                        objectListEmpty = true;
                         listEmpty = true;
                     }
                 }
@@ -121,6 +124,8 @@ public class Collector : MonoBehaviour
                     if (obj.name.Contains(objectName) && notDuplicate(obj))
                     {
                         objectList.Add(obj);
+                        objectListEmpty = true;
+
                         listEmpty = true;
 
                     }
@@ -133,6 +138,8 @@ public class Collector : MonoBehaviour
                     if (obj.tag == objectTag && notDuplicate(obj))
                     {
                         objectList.Add(obj);
+                        objectListEmpty = true;
+
                         listEmpty = true;
 
                     }
@@ -142,19 +149,6 @@ public class Collector : MonoBehaviour
         
     }
 
-
-
-    public void fillTransformList(bool searchInParent)
-    {
-        if(searchInParent)
-        {
-
-        }
-        else
-        {
-
-        }
-    }
 
     public void fillEntityList(bool searchInParent)
     {
@@ -166,6 +160,7 @@ public class Collector : MonoBehaviour
                 if (temp != null && notDuplicate(temp))
                 {
                     entityList.Add(temp);
+                    entityListEmpty = true;
                     listEmpty = true;
                 }
             }
@@ -178,6 +173,7 @@ public class Collector : MonoBehaviour
                 if (temp != null && notDuplicate(temp))
                 {
                     entityList.Add(temp);
+                    entityListEmpty = true;
                     listEmpty = true;
                 }
             }
@@ -192,20 +188,7 @@ public class Collector : MonoBehaviour
         {
             if (target == obj)
             {
-                isPresent = false;
-            }
-        }
-
-        return isPresent;
-    }
-
-    bool notDuplicate(Transform target)
-    {
-        bool isPresent = true;
-        foreach (Transform obj in transformList)
-        {
-            if (target == obj)
-            {
+                Debug.Log("Found Dupe Object!");
                 isPresent = false;
             }
         }
@@ -220,6 +203,7 @@ public class Collector : MonoBehaviour
         {
             if (target == obj)
             {
+                Debug.Log("Found Dupe Entity!");
                 isPresent = false;
             }
         }
@@ -235,18 +219,12 @@ public class Collector : MonoBehaviour
         if(type == ObjectClass.Entity)
         {
             Debug.Log("Sorting Entity List!");
-            entityList.Sort();
-        }
-        else if(type == ObjectClass.Transform)
-        {
-            Debug.Log("Sorting Transform List!");
-            transformList.Sort();
-
+            entityList.Sort(compare);
         }
         else if(type == ObjectClass.GameObject)
         {
             Debug.Log("Sorting Object List!");
-            objectList.Sort();
+            objectList.Sort(compare);
         }
     }
 
@@ -259,14 +237,6 @@ public class Collector : MonoBehaviour
             listEmpty = false;
 
         }
-        else if (type == ObjectClass.Transform)
-        {
-            Debug.Log("Clearing Transform List!");
-            transformList.Clear();
-            listEmpty = false;
-
-
-        }
         else if (type == ObjectClass.GameObject)
         {
             Debug.Log("Clearing Object List!");
@@ -274,5 +244,16 @@ public class Collector : MonoBehaviour
             listEmpty = false;
         }
     }
+
+    static int compare(GameObject obj1, GameObject obj2)
+    {
+        return obj1.GetInstanceID().CompareTo(obj2.GetInstanceID());
+    }
+
+    static int compare(Entity ent1, Entity ent2)
+    {
+        return ent1.GetInstanceID().CompareTo(ent2.GetInstanceID());
+    }
+
     #endregion
 }

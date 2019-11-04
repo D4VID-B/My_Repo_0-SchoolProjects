@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.SceneManagement;
 
 [/*CustomEditor(typeof(Collector)),*/ CanEditMultipleObjects]
 public class CollectorWindow : EditorWindow
@@ -14,7 +15,6 @@ public class CollectorWindow : EditorWindow
     bool searchingInParent = false;
 
     string listString;
-    string starter = "List Contains: ";
 
     [MenuItem("Window/Collector")]
     static void showWindow()
@@ -40,87 +40,63 @@ public class CollectorWindow : EditorWindow
             if (instance.SearchBy == Collector.ObjectSearchType.Layer)
             {
                 instance.objectLayer = EditorGUILayout.IntSlider("Game Layer: ", instance.objectLayer, 8, 31);
-                listString = starter;
-                foreach (GameObject obj in instance.objectList)
-                {
-                    listString += " " + obj.ToString() + " ";
-                }
-                EditorGUILayout.LabelField("List Size: ", instance.objectList.Count.ToString());
-
-                EditorGUILayout.LabelField("Object List: ", listString);
             }
             else if (instance.SearchBy == Collector.ObjectSearchType.Tag)
             {
                 instance.objectTag = EditorGUILayout.TextField("Game Tag: ", instance.objectTag);
-                listString = starter;
-                foreach (GameObject obj in instance.objectList)
-                {
-                    listString += " " + obj.ToString() + " ";
-                }
-                EditorGUILayout.LabelField("List Size: ", instance.objectList.Count.ToString());
-               
-                EditorGUILayout.LabelField("Object List: ", listString);
             }
             else if (instance.SearchBy == Collector.ObjectSearchType.Name)
             {
                 instance.objectName = EditorGUILayout.TextField("Object Name Contains: ", instance.objectName);
-                listString = starter;
-                foreach (GameObject obj in instance.objectList)
-                {
-                    listString += " " + obj.ToString() + " ";
-                }
-                EditorGUILayout.LabelField("List Size: ", instance.objectList.Count.ToString());
-
-                EditorGUILayout.LabelField("Object List: ", listString);
             }
+
+            int index = 0;
+            foreach (GameObject obj in instance.objectList)
+            {
+                EditorGUILayout.LabelField("Object List Position " + index, obj.ToString());
+                index++;
+            }
+            EditorGUILayout.LabelField("List Size: ", instance.objectList.Count.ToString());
+
+            
+
         }
         else if (instance.ObjectType == Collector.ObjectClass.Entity)
         {
-            //instance.theEntity = (Entity)EditorGUILayout.ObjectField("Entity: ", instance.theEntity, typeof(Entity), true);
-            listString = starter;
+            EditorGUILayout.LabelField("List Size: ", instance.entityList.Count.ToString());
+            int index = 0;
             foreach (Entity obj in instance.entityList)
             {
-                listString += " " + obj.ToString() + " ";
+                listString = obj.ToString();
+                EditorGUILayout.LabelField("Entity List Position " + index, listString);
+                index++;
             }
-            EditorGUILayout.LabelField("List Size: ", instance.entityList.Count.ToString());
 
-            EditorGUILayout.LabelField("Entity List: ", listString);
-        }
-        else if (instance.ObjectType == Collector.ObjectClass.Transform)
-        {
-            instance.theTransform = (Transform)EditorGUILayout.ObjectField("Transform: ", instance.theTransform, typeof(Transform), true);
-            listString = starter;
-            foreach (Transform obj in instance.transformList)
-            {
-                listString += " " + obj.ToString() + " ";
-            }
-            EditorGUILayout.LabelField("List Size: ", instance.transformList.Count.ToString());
-
-            EditorGUILayout.LabelField("Transform List: ", listString);
         }
         
 
         EditorGUILayout.HelpBox("Select search scope", MessageType.None);
         instance.Scope = (Collector.SearchScope)EditorGUILayout.EnumPopup("Object Type", instance.Scope);
         
-        if(instance.Scope == Collector.SearchScope.Search_In_Parent)
+        if(instance.Scope == Collector.SearchScope.Search_Scene_Root_Only)
         {
-            searchingInParent = true;
-            instance.parent = (GameObject)EditorGUILayout.ObjectField("Parent to Search: ", instance.parent, typeof(GameObject), true);
+            searchingInParent = false;
+        }
+        else if(instance.Scope == Collector.SearchScope.Search_Scene_ALL_Parents)
+        {
+            searchingInParent = false;
         }
         else
         {
-            searchingInParent = false;
+            searchingInParent = true;
+            instance.parent = (GameObject)EditorGUILayout.ObjectField("Parent to Search: ", instance.parent, typeof(GameObject), true);
         }
 
         EditorGUILayout.HelpBox("Initiate Search", MessageType.None);
         if (GUILayout.Button("Build List"))
         {
-            if(instance.ObjectType == Collector.ObjectClass.Transform && instance.theTransform != null)
-            {
-                instance.fillTransformList(searchingInParent);
-            }
-            else if(instance.ObjectType == Collector.ObjectClass.Entity)
+            
+            if(instance.ObjectType == Collector.ObjectClass.Entity)
             {
                 instance.fillEntityList(searchingInParent);
             }
@@ -168,7 +144,7 @@ public class CollectorWindow : EditorWindow
             renameAll = true;
         }
         
-
+        //Credit to Gregory Miller for giving me the idea for this function
         if (GUILayout.Button("Assign to Parent"))
         {
             renameAll = false;
@@ -187,11 +163,25 @@ public class CollectorWindow : EditorWindow
 
             if(GUILayout.Button("Rename"))
             {
-                foreach(GameObject obj in instance.objectList)
+                if(instance.objectListEmpty)
                 {
-                    obj.name = instance.baseName + "_" + instance.startIndex;
-                    instance.startIndex++;
+                    foreach (GameObject obj in instance.objectList)
+                    {
+                        obj.name = instance.baseName + "_" + instance.startIndex;
+                        instance.startIndex++;
+                    }
                 }
+
+                if(instance.entityListEmpty)
+                {
+                    foreach (Entity obj in instance.entityList)
+                    {
+                        obj.name = instance.baseName + "_" + instance.startIndex;
+                        instance.startIndex++;
+                    }
+                }
+
+                
             }
         }
 
@@ -201,11 +191,49 @@ public class CollectorWindow : EditorWindow
 
             if(GUILayout.Button("Assign"))
             {
-                foreach(GameObject obj in instance.objectList)
+                if(instance.parent == null)//Assign to root
                 {
-                    obj.transform.parent = instance.parent.transform;
 
+                    if (instance.objectListEmpty)
+                    {
+                        foreach (GameObject obj in instance.objectList)
+                        {
+                            obj.transform.parent = null;
+
+                        }
+                    }
+
+                    if (instance.entityListEmpty)
+                    {
+                        foreach (Entity obj in instance.entityList)
+                        {
+                            obj.transform.parent = null;
+
+                        }
+                    }
                 }
+                else
+                {
+
+                    if (instance.objectListEmpty)
+                    {
+                        foreach (GameObject obj in instance.objectList)
+                        {
+                            obj.transform.parent = instance.parent.transform;
+
+                        }
+                    }
+
+                    if (instance.entityListEmpty)
+                    {
+                        foreach (Entity obj in instance.entityList)
+                        {
+                            obj.transform.parent = instance.parent.transform;
+
+                        }
+                    }
+                }
+
             }
         }
 

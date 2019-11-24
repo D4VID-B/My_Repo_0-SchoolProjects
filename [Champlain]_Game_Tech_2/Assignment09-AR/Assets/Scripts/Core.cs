@@ -4,15 +4,36 @@ using UnityEngine;
 
 public class Core : MonoBehaviour
 {
-    // Start is called before the first frame update
+    int coreHealth = 3;
+
+    List<GameObject> enemies;
+
     void Start()
     {
-        
+        foreach(Transform child in transform)
+        {
+            enemies.Add(child.gameObject);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        foreach(GameObject obj in enemies)
+        {
+            if(obj.GetComponent<EnemyScript>() != null)
+            {
+                obj.GetComponent<EnemyScript>().fire();
+            }
+        }
+    }
+
+    public void looseHP()
+    {
+        coreHealth--;
+
+        if(coreHealth <= 0 )
+        {
+            Destroy(gameObject);
+        }
     }
 }

@@ -4,15 +4,30 @@ using UnityEngine;
 
 public class FireWeapon : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameObject bullet;
+    bool canFire = true;
+
+
+    void OnMouseDown()
     {
+        if(canFire)
+        {
+            canFire = false;
+            GetComponent<Renderer>().material.color = Color.red;
+            Instantiate(bullet, new Vector3(-0.05f, 1.25f, -4.5f), Quaternion.Euler(90f, 0f, 0f));
+            StartCoroutine(rechargeWeapon());
+        }
+
         
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator rechargeWeapon()
     {
-        
+        yield return new WaitForSeconds(1);
+        GetComponent<Renderer>().material.color = Color.yellow;
+        yield return new WaitForSeconds(2);
+        Debug.Log("Ready to Fire!");
+        GetComponent<Renderer>().material.color = Color.green;
+        canFire = true;
     }
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyScript : MonoBehaviour
 {
     public GameObject bullet;
+    public Vector3 barrel;
 
     public void fire()
     {
@@ -12,7 +13,8 @@ public class EnemyScript : MonoBehaviour
         //if rolled 6, fire
         if(rollToFire())
         {
-            Instantiate(bullet, new Vector3(), Quaternion.identity, transform);
+
+            Instantiate(bullet, barrel, Quaternion.Euler(0f, 90f, 0f), transform);
         }
     }
 

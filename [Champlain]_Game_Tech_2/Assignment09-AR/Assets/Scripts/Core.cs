@@ -6,19 +6,23 @@ public class Core : MonoBehaviour
 {
     int coreHealth = 3;
 
-    List<GameObject> enemies;
+    List<Transform> enemies = new List<Transform>();
 
     void Start()
     {
-        foreach(Transform child in transform)
+        foreach(Transform child in this.gameObject.transform)
         {
-            enemies.Add(child.gameObject);
+            if(child.gameObject.tag == "Enemy")
+            {
+                enemies.Add(child);
+            }
         }
+        Debug.Log("Enemies found : " + enemies.Count);
     }
 
     void FixedUpdate()
     {
-        foreach(GameObject obj in enemies)
+        foreach(Transform obj in enemies)
         {
             if(obj.GetComponent<EnemyScript>() != null)
             {

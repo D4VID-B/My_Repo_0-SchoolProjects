@@ -23,3 +23,7 @@
 .blend filter=lfs diff=lfs merge=lfs -text
 .ddp filter=lfs diff=lfs merge=lfs -text
 Compressed.ddp filter=lfs diff=lfs merge=lfs -text
+CachedAssetRegistry.bin filter=lfs diff=lfs merge=lfs -text
+UE4.vcxproj.filters filter=lfs diff=lfs merge=lfs -text
+UE4.vcxproj filter=lfs diff=lfs merge=lfs -text
+Project_Hallway.vcxproj filter=lfs diff=lfs merge=lfs -text

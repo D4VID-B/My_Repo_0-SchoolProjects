@@ -143,3 +143,13 @@ T_Wall_A_Diff.uasset filter=lfs diff=lfs merge=lfs -text
 T_WVD_Wires_A_Rough.uasset filter=lfs diff=lfs merge=lfs -text
 T_WVD_Wires_A_N_Normals.uasset filter=lfs diff=lfs merge=lfs -text
 T_WVD_Wires_A_Diff.uasset filter=lfs diff=lfs merge=lfs -text
+T_Wires_B_diff.uasset filter=lfs diff=lfs merge=lfs -text
+T_Wires_B_Rough.uasset filter=lfs diff=lfs merge=lfs -text
+T_Wire_Rough.uasset filter=lfs diff=lfs merge=lfs -text
+T_Wire_Diff.uasset filter=lfs diff=lfs merge=lfs -text
+T_Wall_Puffy_Rough_b.uasset filter=lfs diff=lfs merge=lfs -text
+T_Wall_Puffy_Rough.uasset filter=lfs diff=lfs merge=lfs -text
+T_Wall_Puffy_N_normals.uasset filter=lfs diff=lfs merge=lfs -text
+T_Wall_Puffy_N_normals_c.uasset filter=lfs diff=lfs merge=lfs -text
+T_Wall_Puffy_N_normals_b.uasset filter=lfs diff=lfs merge=lfs -text
+T_Wall_Puffy_Diff_b.uasset filter=lfs diff=lfs merge=lfs -text

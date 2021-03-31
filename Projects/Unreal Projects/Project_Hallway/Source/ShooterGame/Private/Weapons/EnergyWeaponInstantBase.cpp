@@ -57,12 +57,18 @@ void AEnergyWeaponInstantBase::Tick(float DeltaTime)
 
 void AEnergyWeaponInstantBase::FireWeapon()
 {
-
+	if (!isFiring)
+	{
+		isFiring = true;
+	}
 }
 
 void AEnergyWeaponInstantBase::StopFireWeapon()
 {
-
+	if (isFiring)
+	{
+		isFiring = false;
+	}
 }
 
 void AEnergyWeaponInstantBase::ReloadWeapon()
@@ -75,7 +81,12 @@ void AEnergyWeaponInstantBase::SwitchFireMode()
 
 }
 
-void AEnergyWeaponInstantBase::UseAmmo(int amount)
+void AEnergyWeaponInstantBase::UseAmmo()
 {
+	MyPawn->spendCapacitorEnergy(mShotCost);
+}
 
+class AShooterCharacter* AEnergyWeaponInstantBase::GetPawnOwner() const
+{
+	return MyPawn;
 }

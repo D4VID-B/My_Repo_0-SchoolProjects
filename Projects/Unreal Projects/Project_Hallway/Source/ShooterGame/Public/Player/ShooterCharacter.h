@@ -502,13 +502,16 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<ACapacitor*> Capacitors;
 
+	UFUNCTION(BlueprintCallable)
 	void InitCapacitors();
 
 public:
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 		void addCapacitor();
 
+	UFUNCTION(BlueprintCallable)
+		void spendCapacitorEnergy(int amount);
 };
 
 

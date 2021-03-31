@@ -50,7 +50,7 @@ void ACapacitorPickup::GivePickupTo(class AShooterCharacter* Pawn)
 	Pawn->addCapacitor();
 }
 
-void AShooterPickup::GetLifetimeReplicatedProps(TArray< FLifetimeProperty >& OutLifetimeProps) const
+void ACapacitorPickup::GetLifetimeReplicatedProps(TArray< FLifetimeProperty >& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 

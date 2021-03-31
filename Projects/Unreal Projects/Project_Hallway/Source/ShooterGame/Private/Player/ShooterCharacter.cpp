@@ -68,17 +68,12 @@ AShooterCharacter::AShooterCharacter(const FObjectInitializer& ObjectInitializer
 	BaseTurnRate = 45.f;
 	BaseLookUpRate = 45.f;
 
-	//InitCapacitors();
-
 }
 
 void AShooterCharacter::InitCapacitors()
 {
-	if (GetWorld != NULL)
-	{
 		mCapacitor = GetWorld()->SpawnActor<ACapacitor>();
-
-	}
+	
 
 	if (mCapacitor != NULL)
 	{

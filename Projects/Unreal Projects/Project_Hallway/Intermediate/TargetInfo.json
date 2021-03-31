@@ -2,22 +2,22 @@
 	"Targets": [
 		{
 			"Name": "ShooterClient",
-			"Path": "D:\\My_Repo_0\\Projects\\Unreal Projects\\Project_Hallway\\Source\\ShooterClient.Target.cs",
+			"Path": "C:\\Users\\david\\Desktop\\Repos\\My_Repo_0-SchoolProjects\\Projects\\Unreal Projects\\Project_Hallway\\Source\\ShooterClient.Target.cs",
 			"Type": "Client"
 		},
 		{
 			"Name": "ShooterGame",
-			"Path": "D:\\My_Repo_0\\Projects\\Unreal Projects\\Project_Hallway\\Source\\ShooterGame.Target.cs",
+			"Path": "C:\\Users\\david\\Desktop\\Repos\\My_Repo_0-SchoolProjects\\Projects\\Unreal Projects\\Project_Hallway\\Source\\ShooterGame.Target.cs",
 			"Type": "Game"
 		},
 		{
 			"Name": "ShooterGameEditor",
-			"Path": "D:\\My_Repo_0\\Projects\\Unreal Projects\\Project_Hallway\\Source\\ShooterGameEditor.Target.cs",
+			"Path": "C:\\Users\\david\\Desktop\\Repos\\My_Repo_0-SchoolProjects\\Projects\\Unreal Projects\\Project_Hallway\\Source\\ShooterGameEditor.Target.cs",
 			"Type": "Editor"
 		},
 		{
 			"Name": "ShooterServer",
-			"Path": "D:\\My_Repo_0\\Projects\\Unreal Projects\\Project_Hallway\\Source\\ShooterServer.Target.cs",
+			"Path": "C:\\Users\\david\\Desktop\\Repos\\My_Repo_0-SchoolProjects\\Projects\\Unreal Projects\\Project_Hallway\\Source\\ShooterServer.Target.cs",
 			"Type": "Server"
 		}
 	]

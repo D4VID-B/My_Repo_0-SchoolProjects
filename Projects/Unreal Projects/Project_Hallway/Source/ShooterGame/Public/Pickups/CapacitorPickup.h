@@ -24,7 +24,7 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = Effects)
 		USoundCue* PickupSound;
 
-	UPROPERTY(Transient/*, ReplicatedUsing = OnRep_IsActive*/)
+	UPROPERTY(Transient, Replicated/*ReplicatedUsing = OnRep_IsActive*/)
 		uint32 bIsActive : 1;
 
 	UPROPERTY(Transient, Replicated)

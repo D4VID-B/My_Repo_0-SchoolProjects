@@ -77,16 +77,16 @@ void AShooterCharacter::InitCapacitors()
 
 	if (mCapacitor != NULL)
 	{
-		Capacitors.Init(mCapacitor, 10);
-
+		//Capacitors.Init(mCapacitor, 10);
+		Capacitors.Add(mCapacitor);
 	}
 
 	//[Might be changed later]
 	//The player starts with 10 slots for capacitors, but 1/2 of them are empty
-	for (int i = Capacitors.Num()-1; i > 5; i--)
+	/*for (int i = Capacitors.Num()-1; i > 5; i--)
 	{
 		Capacitors[i]->SpendCharge(100);
-	}
+	}*/
 }
 
 void AShooterCharacter::addCapacitor()
@@ -95,7 +95,18 @@ void AShooterCharacter::addCapacitor()
 	//Find the closest capacitor that is not fully charged
 	//charge it
 
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Green, TEXT("Picked Up a Capacitor!"));
+	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Green, TEXT("Picked Up a Capacitor!"));
+}
+
+void AShooterCharacter::printCapacitorStatus(float duration)
+{
+	//Stand-in for the HUD
+	for (int i = 0; i < Capacitors.Num(); i++)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, duration, FColor::Cyan, FString::Printf(TEXT("Capacitor %i Is at %i"), i, Capacitors[i]->GetCurrentCharge()));
+		//GEngine->AddOnScreenDebugMessage(-1, duration, FColor::Cyan, FString::Printf(TEXT("Capacitor is at %i"), Capacitors[i]->GetCurrentCharge()));
+
+	}
 }
 
 void AShooterCharacter::spendCapacitorEnergy(int amount)
@@ -1127,12 +1138,6 @@ bool AShooterCharacter::IsRunning() const
 void AShooterCharacter::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-
-	//Stand-in for the HUD
-	for (int i = 0; i < Capacitors.Num(); i++)
-	{
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Cyan, FString::Printf(TEXT("Capacitor %i Is at %i"), i, Capacitors[i]->GetCurrentCharge()));
-	}
 
 	if (bWantsToRunToggled && !IsRunning())
 	{

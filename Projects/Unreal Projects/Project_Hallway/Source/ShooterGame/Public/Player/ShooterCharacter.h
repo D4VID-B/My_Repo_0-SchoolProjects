@@ -493,7 +493,7 @@ protected:
 
 protected:
 
-	//UPROPERTY()
+	UPROPERTY(BlueprintReadOnly)
 	ACapacitor* mCapacitor;
 
 	UPROPERTY(BlueprintReadWrite)
@@ -512,6 +512,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 		void spendCapacitorEnergy(int amount);
+
+	UFUNCTION(BlueprintCallable)
+		void printCapacitorStatus(float duration);
 };
 
 

@@ -72,69 +72,110 @@ AShooterCharacter::AShooterCharacter(const FObjectInitializer& ObjectInitializer
 
 void AShooterCharacter::InitCapacitors()
 {
-		mCapacitor = GetWorld()->SpawnActor<ACapacitor>();
-	
+	mCapacitor = GetWorld()->SpawnActor<ACapacitor>();
 
 	if (mCapacitor != NULL)
 	{
-		//Capacitors.Init(mCapacitor, 10);
-		Capacitors.Add(mCapacitor);
-	}
+		/*for (int i = 0; i < 5; i++)
+		{
+			Capacitors.Add(mCapacitor);
+		}*/
 
-	//[Might be changed later]
-	//The player starts with 10 slots for capacitors, but 1/2 of them are empty
-	/*for (int i = Capacitors.Num()-1; i > 5; i--)
-	{
-		Capacitors[i]->SpendCharge(100);
-	}*/
+		Capacitors.Init(mCapacitor, 5);
+	}
 }
 
-void AShooterCharacter::addCapacitor()
+bool AShooterCharacter::addCapacitor()
 {
-	//Got through the capacitor array
-	//Find the closest capacitor that is not fully charged
-	//charge it
+	/*
+	* If we don't have 10 capacitors already in the suit, then we add a fully charged capacitor to the end of the array and return true
+	* If we have 10 capacitors: then we don't pick it up and return false.
+	*/
+	bool canPickUp = true;
+	
+	if (Capacitors.Num() < 10)
+	{
+		Capacitors.Add(mCapacitor);
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Green, TEXT("Picked Up a Capacitor!"));
+	}
+	else if (Capacitors.Num() == 10)
+	{
+		canPickUp = false;
+	}
+	
+	return canPickUp;
+}
 
-	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Green, TEXT("Picked Up a Capacitor!"));
+bool AShooterCharacter::spendCapacitorEnergy(int amount)
+{
+	/*
+	* Check the first capacitor in the inventory
+	* If it has the same amount of enery as [amount], then subtract them and return true
+	* If it does not have the needed energy the we eject it and repeat the previous step to look at the next one
+	* If we reach the end and can't find a suitable capacitor then we return false
+	*/
+	bool canSpendEnergy = true;
+	
+	int charge = Capacitors[0]->GetCurrentCharge();
+	
+	if (charge > 0 && charge >= amount)
+	{
+		Capacitors[0]->SpendCharge(amount);
+		charge -= amount;
+
+		if (charge == 0)
+		{
+			ejectCapacitor();
+		}
+	}
+	else if (charge < amount && Capacitors[1] != nullptr)
+	{
+		Capacitors[1]->SpendCharge(amount);
+		ejectCapacitor();
+	}
+	else
+	{
+		canSpendEnergy = false;
+	}
+
+	//for (int i = 0; i < Capacitors.Num(); i++)
+	//{
+	//}
+
+	return canSpendEnergy;
+}
+
+bool AShooterCharacter::ejectCapacitor()
+{
+	/*
+	* Check if there is at least 1 capacitor in the array
+	* If there is 1 or more, then remove the first capacitor in the array
+	*/
+	bool canEject = true;
+
+	if (Capacitors.Num() > 0)
+	{
+		Capacitors.RemoveAt(0);
+	}
+	else
+	{
+		canEject = false;
+	}
+
+	return canEject;
 }
 
 void AShooterCharacter::printCapacitorStatus(float duration)
 {
+	//So we don't have walls of text
+	GEngine->ClearOnScreenDebugMessages();
+
 	//Stand-in for the HUD
 	for (int i = 0; i < Capacitors.Num(); i++)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, duration, FColor::Cyan, FString::Printf(TEXT("Capacitor %i Is at %i"), i, Capacitors[i]->GetCurrentCharge()));
 		//GEngine->AddOnScreenDebugMessage(-1, duration, FColor::Cyan, FString::Printf(TEXT("Capacitor is at %i"), Capacitors[i]->GetCurrentCharge()));
 
-	}
-}
-
-void AShooterCharacter::spendCapacitorEnergy(int amount)
-{
-	//Check the inventory for the first capacitor that is charged
-	//
-	for (int i = 0; i < Capacitors.Num(); i++)
-	{
-		if (Capacitors[i]->GetCurrentCharge() > 0)
-		{
-			
-			int chargeToSpend = Capacitors[i]->GetCurrentCharge();
-			if (chargeToSpend < amount)
-			{
-				chargeToSpend = amount - Capacitors[i]->GetCurrentCharge();
-
-				Capacitors[i]->SpendCharge(Capacitors[i]->GetCurrentCharge());
-				if (i < Capacitors.Num()-1)
-				{
-					Capacitors[i++]->SpendCharge(chargeToSpend);
-				}
-				
-			}
-			else
-			{
-				Capacitors[i]->SpendCharge(amount);
-			}
-		}
 	}
 }
 

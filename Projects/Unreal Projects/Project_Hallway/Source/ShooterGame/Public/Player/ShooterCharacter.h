@@ -508,10 +508,13 @@ protected:
 public:
 
 	UFUNCTION(BlueprintCallable)
-		void addCapacitor();
+		bool addCapacitor();
 
 	UFUNCTION(BlueprintCallable)
-		void spendCapacitorEnergy(int amount);
+		bool spendCapacitorEnergy(int amount);
+
+	UFUNCTION(BlueprintCallable)
+		bool ejectCapacitor();
 
 	UFUNCTION(BlueprintCallable)
 		void printCapacitorStatus(float duration);

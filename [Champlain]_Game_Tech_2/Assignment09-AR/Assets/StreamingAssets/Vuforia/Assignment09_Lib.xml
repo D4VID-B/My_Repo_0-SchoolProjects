@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
-  <Tracking>
-    <ImageTarget name="Blank_AR_Marker_02" size="4.000000 4.000000" />
-    <ImageTarget name="Shield_AR_Marker_02" size="4.000000 4.000000" />
-    <ImageTarget name="SpaceInvader_AR_Marker_4" size="4.000000 4.000000" />
-  </Tracking>
-</QCARConfig>

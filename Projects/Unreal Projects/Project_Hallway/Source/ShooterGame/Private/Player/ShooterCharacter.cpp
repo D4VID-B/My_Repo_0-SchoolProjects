@@ -72,17 +72,10 @@ AShooterCharacter::AShooterCharacter(const FObjectInitializer& ObjectInitializer
 
 void AShooterCharacter::InitCapacitors()
 {
-	mCapacitor = GetWorld()->SpawnActor<ACapacitor>();
-
-	if (mCapacitor != NULL)
-	{
-		/*for (int i = 0; i < 5; i++)
+		for (int i = 0; i < 5; i++)
 		{
-			Capacitors.Add(mCapacitor);
-		}*/
-
-		Capacitors.Init(mCapacitor, 5);
-	}
+			Capacitors.Add(GetWorld()->SpawnActor<ACapacitor>());
+		}
 }
 
 bool AShooterCharacter::addCapacitor()
@@ -95,7 +88,7 @@ bool AShooterCharacter::addCapacitor()
 	
 	if (Capacitors.Num() < 10)
 	{
-		Capacitors.Add(mCapacitor);
+		Capacitors.Add(GetWorld()->SpawnActor<ACapacitor>());
 		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Green, TEXT("Picked Up a Capacitor!"));
 	}
 	else if (Capacitors.Num() == 10)
@@ -116,31 +109,32 @@ bool AShooterCharacter::spendCapacitorEnergy(int amount)
 	*/
 	bool canSpendEnergy = true;
 	
-	int charge = Capacitors[0]->GetCurrentCharge();
-	
-	if (charge > 0 && charge >= amount)
+	//We are out of ammo
+	if (Capacitors.Num() <= 0)
 	{
-		Capacitors[0]->SpendCharge(amount);
-		charge -= amount;
-
-		if (charge == 0)
-		{
-			ejectCapacitor();
-		}
-	}
-	else if (charge < amount && Capacitors[1] != nullptr)
-	{
-		Capacitors[1]->SpendCharge(amount);
-		ejectCapacitor();
+		canSpendEnergy = false;
+		
 	}
 	else
 	{
-		canSpendEnergy = false;
-	}
+		int charge = Capacitors[0]->GetCurrentCharge();
 
-	//for (int i = 0; i < Capacitors.Num(); i++)
-	//{
-	//}
+		if (charge > 0 && charge >= amount)
+		{
+			Capacitors[0]->SpendCharge(amount);
+			charge -= amount;
+
+			if (charge == 0)
+			{
+				ejectCapacitor();
+			}
+		}
+		else if (charge < amount && Capacitors[1] != nullptr)
+		{
+			Capacitors[1]->SpendCharge(amount);
+			ejectCapacitor();
+		}
+	}
 
 	return canSpendEnergy;
 }
@@ -171,12 +165,15 @@ void AShooterCharacter::printCapacitorStatus(float duration)
 	GEngine->ClearOnScreenDebugMessages();
 
 	//Stand-in for the HUD
-	for (int i = 0; i < Capacitors.Num(); i++)
+	if (Capacitors.Num() > 0)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, duration, FColor::Cyan, FString::Printf(TEXT("Capacitor %i Is at %i"), i, Capacitors[i]->GetCurrentCharge()));
-		//GEngine->AddOnScreenDebugMessage(-1, duration, FColor::Cyan, FString::Printf(TEXT("Capacitor is at %i"), Capacitors[i]->GetCurrentCharge()));
+		for (int i = 0; i < Capacitors.Num(); i++)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, duration, FColor::Cyan, FString::Printf(TEXT("Capacitor %i Is at %i"), i, Capacitors[i]->GetCurrentCharge()));
 
+		}
 	}
+	
 }
 
 void AShooterCharacter::PostInitializeComponents()

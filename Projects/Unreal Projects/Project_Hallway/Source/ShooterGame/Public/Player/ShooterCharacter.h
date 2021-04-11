@@ -221,6 +221,7 @@ class AShooterCharacter : public ACharacter
 	SHOOTERGAME_API static FOnShooterCharacterUnEquipWeapon NotifyUnEquipWeapon;
 
 	/** get weapon attach point */
+	UFUNCTION(BlueprintCallable)
 	FName GetWeaponAttachPoint() const;
 
 	/** get total number of inventory items */

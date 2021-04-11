@@ -23,6 +23,9 @@ class SHOOTERGAME_API AEnergyWeaponInstantBase : public AActor
 	UFUNCTION(BlueprintCallable, Category = "Energy Weapon")
 		class AShooterCharacter* GetPawnOwner() const;
 
+	UFUNCTION(BlueprintCallable, Category = "Energy Weapon")
+		void SetPawnOwner(AShooterCharacter* newOwner);
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -35,19 +38,7 @@ public:
 	AEnergyWeaponInstantBase(WeaponType type);
 
 	UFUNCTION(BlueprintCallable)
-		void FireWeapon();
-
-	UFUNCTION(BlueprintCallable)
-		void StopFireWeapon();
-	
-	UFUNCTION(BlueprintCallable)
-		void ReloadWeapon();
-
-	UFUNCTION(BlueprintCallable)
-		void SwitchFireMode();
-
-	UFUNCTION(BlueprintCallable)
-		void UseAmmo();
+		bool UseAmmo();
 
 	UFUNCTION()
 		WeaponType GetWeaponType() { return mWeaponType; };
@@ -59,7 +50,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY(/*Transient, ReplicatedUsing = OnRep_MyPawn*/)
+	UPROPERTY(BlueprintReadWrite/*Transient, ReplicatedUsing = OnRep_MyPawn*/)
 		class AShooterCharacter* MyPawn;
 
 	//What kind of weapon this actually is:

@@ -11,6 +11,7 @@ AEnergyWeaponInstantBase::AEnergyWeaponInstantBase()
 
 	mWeaponType = WeaponType::Shotgun;
 	mShotCost = 6;
+	mAltShotCost = 7;
 	mRateOfFire = 1;
 	mModeSwitchDuration = .5;
 
@@ -28,12 +29,14 @@ AEnergyWeaponInstantBase::AEnergyWeaponInstantBase(WeaponType type)
 	{
 	case WeaponType::Shotgun:
 		mShotCost = 6;
+		mAltShotCost = 7;
 		mRateOfFire = 1;
 		mModeSwitchDuration = .5;
 		break;
 
 	case WeaponType::Railgun:
 		mShotCost = 20;
+		mAltShotCost = 20;
 		mRateOfFire = 1;
 		mModeSwitchDuration = 2;
 		break;
@@ -55,9 +58,20 @@ void AEnergyWeaponInstantBase::Tick(float DeltaTime)
 
 }
 
-bool AEnergyWeaponInstantBase::UseAmmo()
+bool AEnergyWeaponInstantBase::UseAmmo(bool inAltFire)
 {
-	return MyPawn->spendCapacitorEnergy(mShotCost);
+	bool status;
+
+	if (inAltFire)
+	{
+		status = MyPawn->spendCapacitorEnergy(mAltShotCost);
+	}
+	else
+	{
+		status = MyPawn->spendCapacitorEnergy(mShotCost);
+	}
+
+	return status;
 }
 
 class AShooterCharacter* AEnergyWeaponInstantBase::GetPawnOwner() const
@@ -68,4 +82,14 @@ class AShooterCharacter* AEnergyWeaponInstantBase::GetPawnOwner() const
 void AEnergyWeaponInstantBase::SetPawnOwner(AShooterCharacter* newOwner)
 {
 	MyPawn = newOwner;
+}
+
+void AEnergyWeaponInstantBase::SetShotCost(int newCost)
+{
+	mShotCost = newCost;
+}
+
+void AEnergyWeaponInstantBase::SetAltShotCost(int newCost)
+{
+	mAltShotCost = newCost;
 }

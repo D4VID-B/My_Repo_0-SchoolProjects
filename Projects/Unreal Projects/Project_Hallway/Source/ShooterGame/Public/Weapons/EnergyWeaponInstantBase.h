@@ -37,8 +37,15 @@ public:
 	//This is the prefered constructor, since it allows us to specify what kind of weapon this is
 	AEnergyWeaponInstantBase(WeaponType type);
 
+	//Use up some ammo according to whether or not the weapon is in alt-fire or not
 	UFUNCTION(BlueprintCallable)
-		bool UseAmmo();
+		bool UseAmmo(bool inAltFire);
+
+	UFUNCTION(BlueprintCallable)
+		void SetShotCost(int newCost);
+
+	UFUNCTION(BlueprintCallable)
+		void SetAltShotCost(int newCost);
 
 	UFUNCTION()
 		WeaponType GetWeaponType() { return mWeaponType; };
@@ -59,6 +66,9 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite, Category = EnergyWeapon)
 		int mShotCost;
+	
+	UPROPERTY(BlueprintReadWrite, Category = EnergyWeapon)
+		int mAltShotCost;
 
 	UPROPERTY(BlueprintReadWrite, Category = EnergyWeapon)
 		float mRateOfFire;

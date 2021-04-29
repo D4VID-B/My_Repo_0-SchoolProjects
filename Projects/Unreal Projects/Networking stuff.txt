@@ -1,0 +1,3 @@
+"C:\UE4\UE_4.26\Engine\Binaries\Win64\UE4Editor.exe" "C:\Users\david\Desktop\Repos\My_Repo_0-SchoolProjects\Projects\Unreal Projects\Project_Hallway\Project_Hallway.uproject" -game -log
+
+SteamDevAppId=212960

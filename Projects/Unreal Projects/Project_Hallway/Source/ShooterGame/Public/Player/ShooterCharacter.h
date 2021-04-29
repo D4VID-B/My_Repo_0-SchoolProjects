@@ -519,6 +519,9 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 		void printCapacitorStatus(float duration);
+
+	UFUNCTION(BlueprintCallable)
+		int getFirstCapCharge();
 };
 
 

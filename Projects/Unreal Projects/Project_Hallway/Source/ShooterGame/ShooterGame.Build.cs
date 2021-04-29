@@ -30,6 +30,7 @@ public class ShooterGame : ModuleRules
 				"Engine",
 				"OnlineSubsystem",
 				"OnlineSubsystemUtils",
+				"OnlineSubsystemSteam",
 				"AssetRegistry",
 				"NavigationSystem",
 				"AIModule",

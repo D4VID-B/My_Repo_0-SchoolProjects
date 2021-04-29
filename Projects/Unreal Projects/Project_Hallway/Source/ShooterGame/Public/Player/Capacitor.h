@@ -25,6 +25,7 @@ public:
 
 public:
 
+	UFUNCTION(BlueprintCallable)
 	int GetCurrentCharge() { return currentCharge; };
 
 	void SpendCharge(int amount) { currentCharge -= amount; };

@@ -176,6 +176,11 @@ void AShooterCharacter::printCapacitorStatus(float duration)
 	
 }
 
+int AShooterCharacter::getFirstCapCharge()
+{
+	return Capacitors[0]->GetCurrentCharge();
+}
+
 void AShooterCharacter::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();

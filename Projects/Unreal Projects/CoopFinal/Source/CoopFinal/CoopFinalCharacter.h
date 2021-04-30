@@ -66,6 +66,27 @@ protected:
 	void UpdateHealth();
 
 protected:
+
+	UPROPERTY(EditDefaultsOnly, Category = "Gamepaly|Projectiles")
+		TSubclassOf<class ATPP_Projectile> FireballProjectile;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Gamepaly")
+		float RoF;
+
+	bool isFiring;
+
+	UFUNCTION(BlueprintCallable, Category = "Gamepaly")
+		void StartFire();
+
+	UFUNCTION(BlueprintCallable, Category = "Gamepaly")
+		void StopFire();
+
+	UFUNCTION(Server, Reliable)
+		void HandleFire();
+
+	FTimerHandle ShootTimer;
+
+protected:
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	// End of APawn interface

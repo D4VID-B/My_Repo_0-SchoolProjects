@@ -10,6 +10,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Net/UnrealNetwork.h"
 #include "Engine/Engine.h"
+#include "TPP_Projectile.h"
 
 //////////////////////////////////////////////////////////////////////////
 // ACoopFinalCharacter
@@ -49,6 +50,11 @@ ACoopFinalCharacter::ACoopFinalCharacter()
 
 	mCurrentHealth = mMAX_HEALTH;
 
+	FireballProjectile = ATPP_Projectile::StaticClass();
+
+	RoF = 0.25f;
+
+	isFiring = false;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -72,6 +78,7 @@ void ACoopFinalCharacter::SetupPlayerInputComponent(class UInputComponent* Playe
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis("LookUpRate", this, &ACoopFinalCharacter::LookUpAtRate);
 
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ACoopFinalCharacter::StartFire);
 }
 
 
@@ -116,6 +123,43 @@ void ACoopFinalCharacter::MoveRight(float Value)
 	}
 }
 
+
+//////////////////////////////////////////////////////////////////////////
+// Shooting
+
+void ACoopFinalCharacter::StartFire()
+{
+	if (!isFiring)
+	{
+		isFiring = true;
+
+		UWorld* World = GetWorld();
+
+		World->GetTimerManager().SetTimer(ShootTimer, this, &ACoopFinalCharacter::StopFire, RoF, false);
+
+		HandleFire();
+	}
+}
+
+void ACoopFinalCharacter::StopFire()
+{
+	isFiring = false;
+}
+
+void ACoopFinalCharacter::HandleFire_Implementation()
+{
+	FVector spawnLoc = GetActorLocation() + (GetControlRotation().Vector() * 100.0f) + (GetActorUpVector() * 50.0f);
+
+	FRotator spawnRot = GetControlRotation();
+
+	FActorSpawnParameters spawnParams;
+
+	spawnParams.Instigator = GetInstigator();
+
+	spawnParams.Owner = this;
+
+	ATPP_Projectile* projectile = GetWorld()->SpawnActor<ATPP_Projectile>(spawnLoc, spawnRot, spawnParams);
+}
 
 
 //////////////////////////////////////////////////////////////////////////

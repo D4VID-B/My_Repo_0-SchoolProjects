@@ -23,6 +23,11 @@ ATPP_Projectile::ATPP_Projectile()
 	SphereComp->SetCollisionProfileName(TEXT("BlockAllDynamic"));
 	RootComponent = SphereComp;
 
+	if (GetLocalRole() == ROLE_Authority)
+	{
+		SphereComp->OnComponentHit.AddDynamic(this, &ATPP_Projectile::OnProjectileImpact);
+	}
+
 	static ConstructorHelpers::FObjectFinder<UStaticMesh> DefaultMesh(TEXT("/Game/StarterContent/Shapes/Shape_Sphere.Shape_Sphere"));
 	StaticMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	StaticMesh->SetupAttachment(RootComponent);
@@ -59,6 +64,13 @@ void ATPP_Projectile::BeginPlay()
 	
 }
 
+void ATPP_Projectile::Destroyed()
+{
+	FVector spawnLoc = GetActorLocation();
+
+	UGameplayStatics::SpawnEmitterAtLocation(this, Explosion, spawnLoc, FRotator::ZeroRotator, true, EPSCPoolMethod::AutoRelease);
+}
+
 // Called every frame
 void ATPP_Projectile::Tick(float DeltaTime)
 {
@@ -66,3 +78,12 @@ void ATPP_Projectile::Tick(float DeltaTime)
 
 }
 
+void ATPP_Projectile::OnProjectileImpact(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+{
+	if (OtherActor)
+	{
+		UGameplayStatics::ApplyPointDamage(OtherActor, mDamage, NormalImpulse, Hit, GetInstigator()->Controller, this, DamageType);
+	}
+
+	Destroy();
+}

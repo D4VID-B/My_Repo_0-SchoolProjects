@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="..\..\CoopFinal.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{BA897D34-86A7-4EDC-9BCC-52C437356F96}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\CoopFinal.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\CoopFinalEditor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <Filter Include="Config">
+      <UniqueIdentifier>{487CB101-7B28-4149-AED8-9F1DD2B13AF1}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultInput.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\CoopFinal">
+      <UniqueIdentifier>{1F37C41C-A439-4116-A436-7D20D57A96B8}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\CoopFinal\CoopFinal.Build.cs">
+      <Filter>Source\CoopFinal</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\CoopFinal\CoopFinal.cpp">
+      <Filter>Source\CoopFinal</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\CoopFinal\CoopFinal.h">
+      <Filter>Source\CoopFinal</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\CoopFinal\CoopFinalCharacter.cpp">
+      <Filter>Source\CoopFinal</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\CoopFinal\CoopFinalCharacter.h">
+      <Filter>Source\CoopFinal</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\CoopFinal\CoopFinalGameMode.cpp">
+      <Filter>Source\CoopFinal</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\CoopFinal\CoopFinalGameMode.h">
+      <Filter>Source\CoopFinal</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\CoopFinal\TPP_Projectile.cpp">
+      <Filter>Source\CoopFinal</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\CoopFinal\TPP_Projectile.h">
+      <Filter>Source\CoopFinal</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

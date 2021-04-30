@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "CoopFinal",
+			"Path": "C:\\Users\\david\\Desktop\\Repos\\My_Repo_0-SchoolProjects\\Projects\\Unreal Projects\\CoopFinal\\Source\\CoopFinal.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "CoopFinalEditor",
+			"Path": "C:\\Users\\david\\Desktop\\Repos\\My_Repo_0-SchoolProjects\\Projects\\Unreal Projects\\CoopFinal\\Source\\CoopFinalEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

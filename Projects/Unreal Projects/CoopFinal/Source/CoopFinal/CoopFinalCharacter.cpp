@@ -55,6 +55,10 @@ ACoopFinalCharacter::ACoopFinalCharacter()
 	RoF = 0.25f;
 
 	isFiring = false;
+
+	canFire = true;
+
+	canMove = true;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -96,7 +100,7 @@ void ACoopFinalCharacter::LookUpAtRate(float Rate)
 
 void ACoopFinalCharacter::MoveForward(float Value)
 {
-	if ((Controller != nullptr) && (Value != 0.0f))
+	if ((Controller != nullptr) && (Value != 0.0f) && canMove)
 	{
 		// find out which way is forward
 		const FRotator Rotation = Controller->GetControlRotation();
@@ -110,7 +114,7 @@ void ACoopFinalCharacter::MoveForward(float Value)
 
 void ACoopFinalCharacter::MoveRight(float Value)
 {
-	if ( (Controller != nullptr) && (Value != 0.0f) )
+	if ( (Controller != nullptr) && (Value != 0.0f) && canMove)
 	{
 		// find out which way is right
 		const FRotator Rotation = Controller->GetControlRotation();
@@ -129,7 +133,7 @@ void ACoopFinalCharacter::MoveRight(float Value)
 
 void ACoopFinalCharacter::StartFire()
 {
-	if (!isFiring)
+	if (!isFiring && canFire)
 	{
 		isFiring = true;
 
@@ -189,6 +193,10 @@ void ACoopFinalCharacter::UpdateHealth()
 		{
 			FString deathMsg = FString::Printf(TEXT("YOU DIED."));
 			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, deathMsg);
+
+			canFire = false;
+
+			canMove = false;
 		}
 	}
 

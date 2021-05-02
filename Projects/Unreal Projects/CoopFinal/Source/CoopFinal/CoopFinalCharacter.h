@@ -75,6 +75,10 @@ protected:
 
 	bool isFiring;
 
+	bool canFire;
+
+	bool canMove;
+
 	UFUNCTION(BlueprintCallable, Category = "Gamepaly")
 		void StartFire();
 

@@ -13,5 +13,5 @@ void AShooterPlayerController_Menu::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
 
-	FShooterStyle::Initialize();
+	//FShooterStyle::Initialize();
 }
